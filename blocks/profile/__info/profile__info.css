@@ -1,0 +1,5 @@
+.profile__info{
+    margin: 18px 154px 25px 0 ;
+    display: flex;
+    flex-direction: column;
+}

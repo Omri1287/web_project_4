@@ -1,0 +1,11 @@
+@import url(./__vector/header__vector.css);
+
+
+
+.header{
+    display: flex;    
+    padding-bottom: 58px;  
+    padding-top: 45px;
+    max-width: 100%;
+    margin: 0 199px;
+}
