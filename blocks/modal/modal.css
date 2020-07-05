@@ -1,0 +1,12 @@
+@import url(./__container/modal__container.css);
+@import url(./_is-open/modal_is-open.css);
+.modal{
+    height: 100%;
+    width: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none;
+    position: fixed;
+    text-align: center;
+    justify-content: center;
+
+}

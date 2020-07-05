@@ -4,10 +4,27 @@
 @import url(./__info/profile__info.css);
 @import url(./__add-botton/profile__add-button.css);
 @import url(./__edit-button/profile__edit-button.css);
+@import url(./__edit-button-vector/profile__edit-button-vector.css);
+@import url(./__container/profile__container.css);
+@import url(./__add-button-vector/profile__add-button-vector.css);
+
 
 .profile{
     max-width: 882px;
-    margin: 40px 199px 51px;
+    margin: 40px auto 0;
     display: flex;
-    justify-content: space-between;
+    align-items: center;
 }
+@media screen and (max-width: 650px){
+    .profile{
+        max-width: 100%;
+        flex-direction: column;
+    }
+}
+    @media screen and (max-width: 500px){
+        .profile{
+            flex-direction: column;
+            margin:  auto;
+        }
+    }
+

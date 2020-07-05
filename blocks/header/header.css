@@ -4,8 +4,18 @@
 
 .header{
     display: flex;    
-    padding-bottom: 58px;  
+    padding-bottom: 41px;  
     padding-top: 45px;
-    max-width: 100%;
-    margin: 0 199px;
+    max-width: 882px;
+    margin: 0 auto;
+}
+
+@media screen and (max-width: 410px){
+    .header{
+        max-width: 320px;
+        max-height: 56px;
+        margin-top: 28px;
+        margin-left: 0;
+
+    }
 }
