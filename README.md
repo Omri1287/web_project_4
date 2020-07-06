@@ -1,16 +1,15 @@
-# Project 4: Around The U.S.
+# Around The U.S.
 
-### Overview
+### A webpage using CSS, and HTML with the BEM methodology and Javascript
 
-* Figma
-* Images
+I have built this webpage using flexbox and grid. The webpage is about a trip around the US. 
+I have made a responsive web design and it should look good on all of the most popular screen sizes, therefor I used media queries. For texts I used "Inter" font family. The CSS classes and files were organized according to the BEM methodology. 
+On top of that, I used functions in javascript in order to make the webpage interactive, and to be able to make changes inside it. In this case, I added an option to edit the name and description on the profile part. 
 
-**Figma**
+## Future steps
+* Add different fonts in order to make the web page a more personal touch.
+* Add images from further places in the usa, intercatively, by the "add" button. 
+* Add some more buttons in order to be able to edit further parts of the webpage, such as logos, etc...
 
-* [Link to the project in Figma](https://www.figma.com/file/mUgu8OSHWE0M6p6vfwmdu9/Sprint-4-Around-The-U.S.-desktop-mobile?node-id=0%3A1)
-
-**Images**
-
-The way you'll do this at work is by exporting images directly from Figma — we recommend doing that to practice more. Don't forget to optimize them [here](https://tinypng.com/), so your project loads faster. 
-
-Have fun with JavaScript!
+### Link to the page
+https://omri1287.github.io/web_project_4/
