@@ -25,7 +25,6 @@
     .elements{
         grid-template-columns: 1fr;
         grid-gap: 20px;
-        margin-bottom: 48px;
-        margin-top: 36px;
+        margin-top: 53px;
     }
 }

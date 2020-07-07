@@ -21,13 +21,13 @@
 
 @media screen and (max-width: 700px){
     .modal{
-        max-width: 354px
+        max-width: 354px;
 
     }
 }
 @media screen and (max-width: 400px){
     .modal{
-        max-width: 250px
+        max-width: 250px;
 
     }
 }
