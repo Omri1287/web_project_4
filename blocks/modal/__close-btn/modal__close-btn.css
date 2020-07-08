@@ -1,6 +1,6 @@
 .modal__close-btn{
-    background: #FFFFFF;
-    background: url(../../../images/Close-Icon.svg);
+    background: black;
+    background-image: url(../../../images/Close-Icon.svg);
     margin-left: 460px;  
     border: none;
     height: 40px;
