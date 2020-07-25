@@ -245,7 +245,7 @@ const editProfileModal = document.querySelector('.modal__type_edit-profile')
 const editButton = document.querySelector('.profile__edit-button'); 
 const editCloseButton = document.querySelector('.modal__close-btn_type_edit-profile'); 
 const modal = document.querySelector('.modal'); 
-const editForm = document.querySelector('.modal__form'); 
+const editForm = editProfileModal.querySelector('.modal__form'); 
 const inputName = document.querySelector('.modal__input_name'); 
 const inputDesc = document.querySelector('.modal__input_desc'); 
  
@@ -256,7 +256,7 @@ const profileDesc = document.querySelector('.profile__text_desc');
 const addImageButton = document.querySelector('.profile__add-button');
 
 const addImageModal = document.querySelector('.modal_type_add-image');
-//const addImageForm = addImageModal.querySelector('.modal__form_type_add-image');
+const addImageForm = addImageModal.querySelector('.modal__form');
 //const addImageTitleInput = document.querySelector(".modal__input_image-name");
 //const addImageUrlInput = document.querySelector(".modal__input_url");
 //const closeAddImage = addImageModal.querySelector('.modal__close-btn_type_add-image');
