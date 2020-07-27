@@ -15,7 +15,6 @@
     box-sizing: border-box;
     grid-gap: 18px 21px;
     margin-top: 51px;
-    padding: 0;
 }
 @media screen and (max-width: 780px){
     .elements{
