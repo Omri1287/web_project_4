@@ -1,0 +1,6 @@
+.modal__new-image{
+    border-radius: 0px;
+    max-width: 433px;
+    max-height: 540px; 
+    background-size: cover;
+}

@@ -22,15 +22,20 @@ const addImageForm = addImageModal.querySelector('.modal__form');
 const closeAddImage = addImageModal.querySelector('.modal__close-btn_type_add-image');
 const addImageSubmit = addImageModal.querySelector('.modal__save');
 
-//image
+//image enlarged
 const imageModal = document.querySelector('.modal_type_image');
 const closeImageModal = imageModal.querySelector('.modal__close-btn_type_image');
  
+//new images template
+const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
 
 
 //like button
-const clickLike = document.getElementsByClassName('elements__heart');
+const clickLike = document.querySelector('.elements__heart');
+//list of originl images
+const list = document.querySelector('.elements__item');
 
+//original images (not sure why i need it)
 const initialCards = [
   {
       name: "Yosemite Valley",
@@ -59,20 +64,38 @@ const initialCards = [
 ];
 
 //functions 
+//open the modal
 function toggleModalWindow(modal){ 
   modal.classList.toggle('modal_is-open'); 
 } 
 
-
+//open the edit profile modal
  editButton.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
-addImageButton.addEventListener('click', () => {
+//close the edit profile modal
+editCloseButton.addEventListener('click', () => {
+  toggleModalWindow(editProfileModal);
+})
+
+//open the add image modal
+addImageButton.addEventListener('click', (createCard) => {
   toggleModalWindow(addImageModal);
 })
+//close the add image modal
+closeAddImage.addEventListener('click', () => {
+  toggleModalWindow(addImageModal);
+})
+//enlarge image
 imageModal.addEventListener('click', () => {
   toggleModalWindow(imageModal);
 })
+//close enlarged image
+closeImageModal.addEventListener('click', () => {
+  toggleModalWindow(closeImageModal);
+})
+
+//handle edit profile form
 function formSubmitHandler(e){
 
     e.preventDefault(); 
@@ -80,9 +103,10 @@ function formSubmitHandler(e){
     profileDesc.textContent = inputDesc.value; 
     toggleModalWindow(editProfileModal);
 } 
-
+//submit edit profile form
 editForm.addEventListener('submit', formSubmitHandler);
 
+//handle add image form
 addImageForm.addEventListener('submit', (e) => {
   e.preventDefault();
   const imageTitleInput = addImageForm.querySelector('.modal__input_image-name');
@@ -90,42 +114,47 @@ addImageForm.addEventListener('submit', (e) => {
   createCard({name: imageTitleInput.value, link: imageUrlInput.value});
   toggleModalWindow(addImageModal);
 });
-const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
 
+  //like button
+/*for(let i = 0; i < clickLike.length; i++){
+  console.log("hiiiii");
+  clickLike[i].addEventListener("click", function(e){
+    e.target.classList.toggle("elements__heart-active");
+  })
+};*/
+clickLike.addEventListener("click", () => {
+  clickLike.classList.toggle("elements__heart-active");
+});
+
+//create a new card
 function createCard(name, link) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.elements__image');
   const cardTitle = cardElement.querySelector('.elements__title');
-  const cardLikeButton = cardElement.querySelector('.elements__heart');
-  const deleteCardButton = cardElement.querySelector('.elements__delete');
+  // image name and image url
   cardTitle.textContent = name;
   cardImage.style.backgroundImage = 'url(' + link + ')';
 
+  //enlarge the image 
   cardImage.addEventListener('click', () => {
     toggleModalWindow(imageModal);
   })
-  likeButon.addEventListener('click', () => {
-    for(let i = 0; i < clickLike.length; i++){
-      clickLike[i].addEventListener("click", function(e){
-        e.target.classList.toggle("elements__heart-active");
-    })};
-  });
-  deleteCardButton.addEventListener('click', () => {
-
-  });
   return cardElement;
 }
+const deleteCardButton = cardElement.querySelector('.elements__delete');
 
-editCloseButton.addEventListener('click', () => {
-  toggleModalWindow(editProfileModal);
-})
+  //delete image
+/*deleteCardButton.addEventListener('click', () => {
 
-closeAddImage.addEventListener('click', () => {
-  toggleModalWindow(addImageModal);
-})
-closeImageModal.addEventListener('click', () => {
-  toggleModalWindow(closeImageModal);
-})
+  });*/
+  clickLike.addEventListener('click', (e) => {
+    e.target.closest('.elements__heart').classList.toggle('elements__heart-active');
+  })
+
+
+
+
+
 
   /*for(let i = 0; i < clickLike.length; i++){
     clickLike[i].addEventListener("click", function(e){
@@ -133,9 +162,8 @@ closeImageModal.addEventListener('click', () => {
       toggleModalWindow(clickLike)
   });}*/
 
-const list = document.querySelector('.elements');
 
-/*initialCards.forEach((data) => {
+initialCards.forEach((data) => {
   const cardItem = createCard(data.name, data.link)
   list.prepend(cardItem);
-});*/
+});
