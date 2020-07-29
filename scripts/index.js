@@ -31,9 +31,9 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 
 
 //like button
-const clickLike = document.querySelector('.elements__heart');
+const clickLike = document.querySelectorAll('.elements__heart');
 //list of originl images
-const list = document.querySelector('.elements__item');
+const list = document.querySelector('.elements');
 
 //original images (not sure why i need it)
 const initialCards = [
@@ -123,9 +123,11 @@ addImageForm.addEventListener('submit', (e) => {
   })
 };*/
 //like button
-clickLike.addEventListener("click", () => {
-  clickLike.classList.toggle("elements__heart-active");
-});
+
+for(let i = 0; i < clickLike.length; i++){
+  clickLike[i].addEventListener("click", function(e){
+    e.target.classList.toggle("elements__heart-active");
+  });}
 
 //create a new card
 function createCard(name, link) {
@@ -141,6 +143,7 @@ function createCard(name, link) {
   cardImage.addEventListener('click', () => {
     toggleModalWindow(imageModal);
   })
+
   return cardElement;
 }
 

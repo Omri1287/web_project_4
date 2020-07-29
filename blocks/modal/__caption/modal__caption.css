@@ -2,6 +2,11 @@
     font-weight: normal;
     font-size: 12px;
     line-height: 15px;
-
     color: #FFFFFF;
+    margin: auto;
+    width: 80%;
+    max-width: 700px;
+    text-align: left;
+    padding: 10px 0;
+    height: 150px;
 }
