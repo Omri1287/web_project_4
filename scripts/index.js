@@ -122,6 +122,7 @@ addImageForm.addEventListener('submit', (e) => {
     e.target.classList.toggle("elements__heart-active");
   })
 };*/
+//like button
 clickLike.addEventListener("click", () => {
   clickLike.classList.toggle("elements__heart-active");
 });
@@ -134,22 +135,21 @@ function createCard(name, link) {
   // image name and image url
   cardTitle.textContent = name;
   cardImage.style.backgroundImage = 'url(' + link + ')';
-
+  //delete image
+  //const deleteCardButton = cardElement.querySelector('.elements__delete');
   //enlarge the image 
   cardImage.addEventListener('click', () => {
     toggleModalWindow(imageModal);
   })
   return cardElement;
 }
-const deleteCardButton = cardElement.querySelector('.elements__delete');
 
-  //delete image
+
+
 /*deleteCardButton.addEventListener('click', () => {
 
   });*/
-  clickLike.addEventListener('click', (e) => {
-    e.target.closest('.elements__heart').classList.toggle('elements__heart-active');
-  })
+
 
 
 
