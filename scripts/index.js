@@ -25,7 +25,9 @@ const addImageSubmit = addImageModal.querySelector('.modal__save');
 //image enlarged
 const imageModal = document.querySelector('.modal_type_image');
 const closeImageModal = imageModal.querySelector('.modal__close-btn_type_image');
- 
+const imageModalFormer = document.querySelectorAll('.elements__image')
+const imageModalEnlarge = imageModal.querySelector('.modal__large-image')
+const imageModalCaption = imageModal.querySelector('.modal__caption')
 //new images template
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
 
@@ -38,29 +40,29 @@ const list = document.querySelector('.elements');
 //original images (not sure why i need it)
 const initialCards = [
   {
-      name: "Yosemite Valley",
-      link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
-  },
-  {
-      name: "Lake Louise",
-      link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
-  },
-  {
-      name: "Bald Mountains",
-      link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
-  },
-  {
-      name: "Latemar",
-      link: "https://code.s3.yandex.net/web-code/latemar.jpg"
-  },
-  {
-      name: "Vanois National Park",
-      link: "https://code.s3.yandex.net/web-code/vanois.jpg"
-  },
-  {
-      name: "Lago di Braies",
-      link: "https://code.s3.yandex.net/web-code/lago.jpg"
-  }
+    name: "Lago di Braies",
+    link: "https://code.s3.yandex.net/web-code/lago.jpg"
+},
+{
+    name: "Vanois National Park",
+    link: "https://code.s3.yandex.net/web-code/vanois.jpg"
+},
+{
+    name: "Latemar",
+    link: "https://code.s3.yandex.net/web-code/latemar.jpg"
+},
+{
+    name: "Bald Mountains",
+    link: "https://code.s3.yandex.net/web-code/bald-mountains.jpg"
+},
+{
+    name: "Lake Louise",
+    link: "https://code.s3.yandex.net/web-code/lake-louise.jpg"
+},
+{
+    name: "Yosemite Valley",
+    link: "https://code.s3.yandex.net/web-code/yosemite.jpg"
+}
 ];
 
 //functions 
@@ -90,9 +92,10 @@ closeAddImage.addEventListener('click', () => {
 imageModal.addEventListener('click', () => {
   toggleModalWindow(imageModal);
 })
+
 //close enlarged image
 closeImageModal.addEventListener('click', () => {
-  toggleModalWindow(closeImageModal);
+  toggleModalWindow(imageModal);
 })
 
 //handle edit profile form
@@ -130,13 +133,13 @@ for(let i = 0; i < clickLike.length; i++){
   });}
 
 //create a new card
-function createCard(name, link) {
+function createCard(e) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.elements__image');
   const cardTitle = cardElement.querySelector('.elements__title');
   // image name and image url
-  cardTitle.textContent = name;
-  cardImage.style.backgroundImage = 'url(' + link + ')';
+  cardTitle.textContent = e.name;
+  cardImage.style.backgroundImage = `url(${e.link})`;
   //delete image
   //const deleteCardButton = cardElement.querySelector('.elements__delete');
   //enlarge the image 
@@ -144,6 +147,7 @@ function createCard(name, link) {
     toggleModalWindow(imageModal);
   })
 
+    
   return cardElement;
 }
 
@@ -166,7 +170,23 @@ function createCard(name, link) {
   });}*/
 
 
-initialCards.forEach((data) => {
+/*initialCards.forEach((data) => {
   const cardItem = createCard(data.name, data.link)
   list.prepend(cardItem);
-});
+});*/
+
+
+
+function renderImage(data) {
+  list.prepend(createCard(data));
+}
+initialCards.forEach((data) => {
+  renderImage(data)
+})
+
+function enlargeImage (caption, link){
+  imageModalEnlarge.src = link;
+  imageModalEnlarge.alt = caption;
+  imageModalCaption.textContent = caption;
+  toggleModalWindow(imageModal);
+}
