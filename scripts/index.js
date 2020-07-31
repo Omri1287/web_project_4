@@ -33,7 +33,6 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 
 
 //like button
-const clickLike = document.querySelectorAll('.elements__heart');
 //list of originl images
 const list = document.querySelector('.elements');
 
@@ -127,20 +126,34 @@ addImageForm.addEventListener('submit', (e) => {
 };*/
 //like button
 
-for(let i = 0; i < clickLike.length; i++){
+/*for(let i = 0; i < clickLike.length; i++){
   clickLike[i].addEventListener("click", function(e){
     e.target.classList.toggle("elements__heart-active");
-  });}
-
+  });}*/
+  //go through images
+  function renderImage(data) {
+    list.prepend(createCard(data));
+  }
+  initialCards.forEach((data) => {
+    renderImage(data)
+  })
 //create a new card
 function createCard(e) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.elements__image');
   const cardTitle = cardElement.querySelector('.elements__title');
+  const clickLike = document.querySelector('.elements__heart');
+
   // image name and image url
   cardTitle.textContent = e.name;
   cardImage.style.backgroundImage = `url(${e.link})`;
   //delete image
+  //like button
+
+  for(let i = 0; i < clickLike.length; i++){
+    clickLike[i].addEventListener("click", function(e){
+      e.target.classList.toggle("elements__heart-active");
+    });}
   //const deleteCardButton = cardElement.querySelector('.elements__delete');
   //enlarge the image 
   cardImage.addEventListener('click', () => {
@@ -177,12 +190,7 @@ function createCard(e) {
 
 
 
-function renderImage(data) {
-  list.prepend(createCard(data));
-}
-initialCards.forEach((data) => {
-  renderImage(data)
-})
+
 
 function enlargeImage (caption, link){
   imageModalEnlarge.src = link;
