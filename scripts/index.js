@@ -164,7 +164,10 @@ function createCard(e) {
 }
 
 
-addImageSubmit.addEventListener('click', createCard);
+addImageSubmit.addEventListener('submit', function(e) {
+  e.preventDefault(); 
+  createCard(e);
+});
 /*deleteCardButton.addEventListener('click', () => {
 
   });*/
