@@ -122,25 +122,13 @@ editForm.addEventListener('submit', formSubmitHandler);
 });*/
 const addImageHandler = (e) => {
   e.preventDefault();
-
-  const cardElement = cardCreator(addImageTitle.value, addImageUrl.value);
+  const cardElement = createCard(addImageTitle.value, addImageUrl.value);
   list.prepend(cardElement);
   toggleModalWindow(addImageModal);
 };
 
-  //like button
-/*for(let i = 0; i < clickLike.length; i++){
-  console.log("hiiiii");
-  clickLike[i].addEventListener("click", function(e){
-    e.target.classList.toggle("elements__heart-active");
-  })
-};*/
-//like button
 
-/*for(let i = 0; i < clickLike.length; i++){
-  clickLike[i].addEventListener("click", function(e){
-    e.target.classList.toggle("elements__heart-active");
-  });}*/
+
   //go through images
   function renderImage(data) {
     list.prepend(createCard(data));
@@ -180,28 +168,6 @@ addImageSubmit.addEventListener('click', createCard);
 /*deleteCardButton.addEventListener('click', () => {
 
   });*/
-
-
-
-
-
-
-
-  /*for(let i = 0; i < clickLike.length; i++){
-    clickLike[i].addEventListener("click", function(e){
-      e.target.classList.toggle("elements__heart-active");
-      toggleModalWindow(clickLike)
-  });}*/
-
-
-/*initialCards.forEach((data) => {
-  const cardItem = createCard(data.name, data.link)
-  list.prepend(cardItem);
-});*/
-
-
-
-
 
 function enlargeImage (caption, link){
   imageModalEnlarge.src = link;
