@@ -20,7 +20,9 @@ const addImageModal = document.querySelector('.modal_type_add-image');
 
 const addImageForm = addImageModal.querySelector('.modal__form');
 const closeAddImage = addImageModal.querySelector('.modal__close-btn_type_add-image');
-const addImageSubmit = addImageModal.querySelector('.modal__save');
+const addImageTitle = addImageModal.querySelector('.modal__input_image-name');
+const addImageUrl = addImageModal.querySelector('.modal__input_url');
+const addImageSubmit = addImageModal.querySelector('.modal__save_type_add-image');
 
 //image enlarged
 const imageModal = document.querySelector('.modal_type_image');
@@ -83,6 +85,7 @@ editCloseButton.addEventListener('click', () => {
 addImageButton.addEventListener('click', (createCard) => {
   toggleModalWindow(addImageModal);
 })
+
 //close the add image modal
 closeAddImage.addEventListener('click', () => {
   toggleModalWindow(addImageModal);
@@ -98,7 +101,7 @@ closeImageModal.addEventListener('click', () => {
 })
 
 //handle edit profile form
-function formSubmitHandler(e){
+const formSubmitHandler = (e) => {
 
     e.preventDefault(); 
     profileName.textContent = inputName.value; 
@@ -109,13 +112,21 @@ function formSubmitHandler(e){
 editForm.addEventListener('submit', formSubmitHandler);
 
 //handle add image form
-addImageForm.addEventListener('submit', (e) => {
+/*addImageForm.addEventListener('submit', (e) => {
   e.preventDefault();
-  const imageTitleInput = addImageForm.querySelector('.modal__input_image-name');
+  const cardElement = createCard()
+  const imageTitleInput = addImageTitle.querySelector('.modal__input_image-name');
   const imageUrlInput = addImageForm.querySelector('.modal__input_url'); 
   createCard({name: imageTitleInput.value, link: imageUrlInput.value});
   toggleModalWindow(addImageModal);
-});
+});*/
+const addImageHandler = (e) => {
+  e.preventDefault();
+
+  const cardElement = cardCreator(addImageTitle.value, addImageUrl.value);
+  list.prepend(cardElement);
+  toggleModalWindow(addImageModal);
+};
 
   //like button
 /*for(let i = 0; i < clickLike.length; i++){
@@ -142,7 +153,8 @@ function createCard(e) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImage = cardElement.querySelector('.elements__image');
   const cardTitle = cardElement.querySelector('.elements__title');
-  const clickLike = document.querySelector('.elements__heart');
+  const clickLike = cardElement.querySelector('.elements__heart');
+  const deleteCardButton = cardElement.querySelector('.elements__delete')
 
   // image name and image url
   cardTitle.textContent = e.name;
@@ -150,10 +162,9 @@ function createCard(e) {
   //delete image
   //like button
 
-  for(let i = 0; i < clickLike.length; i++){
-    clickLike[i].addEventListener("click", function(e){
-      e.target.classList.toggle("elements__heart-active");
-    });}
+  clickLike.addEventListener("click", function(e){
+    e.target.classList.toggle("elements__heart-active");
+  });
   //const deleteCardButton = cardElement.querySelector('.elements__delete');
   //enlarge the image 
   cardImage.addEventListener('click', () => {
@@ -165,7 +176,7 @@ function createCard(e) {
 }
 
 
-
+addImageSubmit.addEventListener('click', createCard);
 /*deleteCardButton.addEventListener('click', () => {
 
   });*/
