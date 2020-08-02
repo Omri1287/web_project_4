@@ -1,13 +1,17 @@
 .modal__close-btn{
-    background: black;
     background-image: url(../../../images/Close-Icon.svg);
-    margin-left: 460px;  
-    border: none;
     height: 40px;
     width: 40px;
-    transition-duration: .3s;
-    cursor: pointer;
     background-size: contain;
+    background-color: transparent;
+    color: #fff;
+    border: none;
+    font-size: 5em;
+    font-weight: 400;
+    position: absolute;
+    top: -40px;
+    right: 0px;
+    cursor: pointer;
 }
 .modal__close-btn:hover{
     opacity: 0.6;

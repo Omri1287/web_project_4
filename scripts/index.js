@@ -27,9 +27,10 @@ const addImageSubmit = addImageModal.querySelector('.modal__save_type_add-image'
 //image enlarged
 const imageModal = document.querySelector('.modal_type_image');
 const closeImageModal = imageModal.querySelector('.modal__close-btn_type_image');
-const imageModalFormer = document.querySelectorAll('.elements__image')
-const imageModalEnlarge = imageModal.querySelector('.modal__large-image')
-const imageModalCaption = imageModal.querySelector('.modal__caption')
+const imageModalFormer = document.querySelectorAll('.elements__image');
+const modalImg = document.getElementById("img-large");
+const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
+const imageModalCaption = imageModal.querySelector('.modal__caption');
 //new images template
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
 
@@ -91,9 +92,7 @@ closeAddImage.addEventListener('click', () => {
   toggleModalWindow(addImageModal);
 })
 //enlarge image
-imageModal.addEventListener('click', () => {
-  toggleModalWindow(imageModal);
-})
+
 
 //close enlarged image
 closeImageModal.addEventListener('click', () => {
@@ -139,6 +138,8 @@ const addImageHandler = (e) => {
 //create a new card
 function createCard(e) {
   const cardElement = cardTemplate.cloneNode(true);
+  const cardImageContainer = cardTemplate.querySelector('.elements__image-container');
+  const cardTitleContainer = cardTemplate.querySelector('.elements__container');
   const cardImage = cardElement.querySelector('.elements__image');
   const cardTitle = cardElement.querySelector('.elements__title');
   const clickLike = cardElement.querySelector('.elements__heart');
@@ -155,10 +156,17 @@ function createCard(e) {
   });
   //const deleteCardButton = cardElement.querySelector('.elements__delete');
   //enlarge the image 
-  cardImage.addEventListener('click', () => {
+  /*cardImage.addEventListener('click', () => {
+    toggleModalWindow(imageModal);
+  })*/
+  cardElement.addEventListener('click', () => {
+    imageModalEnlarge.setAttribute('src', e.link);
+    imageModalEnlarge.setAttribute('alt', e.name);
+    imageModalCaption.textContent = e.name;
     toggleModalWindow(imageModal);
   })
-
+  document.querySelector('.elements__item').appendChild('elements__image-container');
+  document.querySelector('.elements__item').appendChild('elements__container');
     
   return cardElement;
 }
@@ -168,13 +176,14 @@ addImageSubmit.addEventListener('submit', function(e) {
   e.preventDefault(); 
   createCard(e);
 });
+addImageForm.addEventListener('submit', addImageHandler);
 /*deleteCardButton.addEventListener('click', () => {
 
   });*/
 
-function enlargeImage (caption, link){
-  imageModalEnlarge.src = link;
-  imageModalEnlarge.alt = caption;
-  imageModalCaption.textContent = caption;
-  toggleModalWindow(imageModal);
+
+imageModalEnlarge.onclick = function(){
+  imageModal.style.display = "block";
+  modalImg.src = this.src;
+  imageModalCaption.innerHTML = this.alt;
 }
