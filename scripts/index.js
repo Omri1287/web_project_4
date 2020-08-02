@@ -138,12 +138,10 @@ const addImageHandler = (e) => {
 //create a new card
 function createCard(e) {
   const cardElement = cardTemplate.cloneNode(true);
-  const cardImageContainer = cardTemplate.querySelector('.elements__image-container');
-  const cardTitleContainer = cardTemplate.querySelector('.elements__container');
   const cardImage = cardElement.querySelector('.elements__image');
   const cardTitle = cardElement.querySelector('.elements__title');
   const clickLike = cardElement.querySelector('.elements__heart');
-  const deleteCardButton = cardElement.querySelector('.elements__delete')
+  const deleteCardButton = cardElement.querySelector('.elements__delete');
 
   // image name and image url
   cardTitle.textContent = e.name;
@@ -154,20 +152,29 @@ function createCard(e) {
   clickLike.addEventListener("click", function(e){
     e.target.classList.toggle("elements__heart-active");
   });
-  //const deleteCardButton = cardElement.querySelector('.elements__delete');
-  //enlarge the image 
-  /*cardImage.addEventListener('click', () => {
-    toggleModalWindow(imageModal);
-  })*/
+  deleteCardButton.addEventListener('click', (e) => {
+    cardElement.remove();
+    e.stopPropagation();
+    });
   cardElement.addEventListener('click', () => {
     imageModalEnlarge.setAttribute('src', e.link);
     imageModalEnlarge.setAttribute('alt', e.name);
     imageModalCaption.textContent = e.name;
     toggleModalWindow(imageModal);
   })
-  document.querySelector('.elements__item').appendChild('elements__image-container');
-  document.querySelector('.elements__item').appendChild('elements__container');
-    
+
+  const cardItem = document.querySelector('.elements__item');
+  if (cardItem) {
+    const img = document.createElement("img");
+    const cap = document.createElement('cap')
+    img.classList.add('elements__image-container');
+    cap.classList.add('elements__container')
+    cardItem.appendChild(img);
+    cardItem.appendChild(cap);
+  }
+//   document.querySelector('.elements__item').appendChild('elements__image-container');
+//   document.querySelector('.elements__item').appendChild('elements__container');
+
   return cardElement;
 }
 
@@ -177,9 +184,7 @@ addImageSubmit.addEventListener('submit', function(e) {
   createCard(e);
 });
 addImageForm.addEventListener('submit', addImageHandler);
-/*deleteCardButton.addEventListener('click', () => {
 
-  });*/
 
 
 imageModalEnlarge.onclick = function(){

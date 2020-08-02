@@ -9,3 +9,9 @@
     margin-top: 10px;
 
 }
+@media screen and (max-width: 400px){
+    .modal__caption{
+        margin-left: 40px;
+
+    }
+}

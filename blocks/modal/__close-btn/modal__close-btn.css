@@ -24,7 +24,8 @@
 }
 @media screen and (max-width: 400px){
     .modal__close-btn{
-        margin-left: 250px; 
+        margin-left: 280px;
+        position: initial; 
 
     }
 }
