@@ -160,7 +160,6 @@ function createCard(e) {
   const cardItem = document.querySelector('.elements__item');
   if (cardItem) {
     const div = document.createElement('div');
-    div.setAttribute('src', e.link);
     div.classList.add('elements__image');
     cardItem.appendChild(div);
   }
@@ -171,8 +170,10 @@ function createCard(e) {
 
 addImageSubmit.addEventListener('submit', function(e) {
   e.preventDefault(); 
-  createCard(e);
+  createCard(cardTemplate);
 });
+/*const newElement = document.createElement('div');
+newElement.innerHTML = '<div class="elements__image"></div>';*/
 addImageForm.addEventListener('submit', addImageHandler);
 
 
