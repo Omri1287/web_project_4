@@ -159,12 +159,10 @@ function createCard(e) {
 //adding the new item into the DOM
   const cardItem = document.querySelector('.elements__item');
   if (cardItem) {
-    const img = document.createElement("img");
-    const cap = document.createElement('cap')
-    img.classList.add('elements__image-container');
-    cap.classList.add('elements__container')
-    cardItem.appendChild(img);
-    cardItem.appendChild(cap);
+    const div = document.createElement('div');
+    div.setAttribute('src', e.link);
+    div.classList.add('elements__image');
+    cardItem.appendChild(div);
   }
 
   return cardElement;
