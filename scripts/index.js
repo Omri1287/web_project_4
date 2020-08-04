@@ -37,7 +37,7 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 
 //like button
 //list of originl images
-const list = document.querySelector('.elements');
+const list = document.querySelector('.elements__list');
 
 //original images (not sure why i need it)
 const initialCards = [
@@ -111,22 +111,14 @@ const formSubmitHandler = (e) => {
 editForm.addEventListener('submit', formSubmitHandler);
 
 
-const addImageHandler = (e) => {
-  e.preventDefault();
-  const cardElement = createCard(addImageTitle.value, addImageUrl.value);
-  list.prepend(cardElement);
-  toggleModalWindow(addImageModal);
-};
-
-
-
-  //go through images
+  //go through images list
   function renderImage(data) {
     list.prepend(createCard(data));
   }
   initialCards.forEach((data) => {
     renderImage(data)
   })
+
 //create a new card
 function createCard(e) {
   const cardElement = cardTemplate.cloneNode(true);
@@ -150,33 +142,33 @@ function createCard(e) {
     e.stopPropagation();
     });
   //Enlarging image
-  cardElement.addEventListener('click', () => {
+  cardImage.addEventListener('click', () => {
     imageModalEnlarge.setAttribute('src', e.link);
-    imageModalEnlarge.setAttribute('alt', e.name);
     imageModalCaption.textContent = e.name;
     toggleModalWindow(imageModal);
   })
-//adding the new item into the DOM
-  const cardItem = document.querySelector('.elements__item');
-  if (cardItem) {
-    const div = document.createElement('div');
-    div.classList.add('elements__image');
-    cardItem.appendChild(div);
-  }
+
 
   return cardElement;
 }
 
 
-addImageSubmit.addEventListener('submit', function(e) {
-  e.preventDefault(); 
-  createCard(cardTemplate);
-});
-/*const newElement = document.createElement('div');
-newElement.innerHTML = '<div class="elements__image"></div>';*/
+
+//new image handler 
+
+const addImageHandler = (e) => {
+  e.preventDefault();
+  const cardElement = createCard({
+    name: addImageTitle.value, link: addImageUrl.value
+  });
+  list.prepend(cardElement);
+  toggleModalWindow(addImageModal);
+};
+//add new image once pressed 'submit'
 addImageForm.addEventListener('submit', addImageHandler);
 
 
+//enlarge image once it's being clicked
 
 imageModalEnlarge.onclick = function(){
   imageModal.style.display = "block";
