@@ -6,10 +6,17 @@ I have built this webpage using flexbox and grid. The webpage is about a trip ar
 I have made a responsive web design and it should look good on all of the most popular screen sizes, therefor I used media queries. For texts I used "Inter" font family. The CSS classes and files were organized according to the BEM methodology. 
 On top of that, I used functions in javascript in order to make the webpage interactive, and to be able to make changes inside it. In this case, I added an option to edit the name and description on the profile part. 
 
+## JS features
+* The option to edit the profile in the page, and change the name and dscription
+* Add button which is adding selected images
+* Enabling to enlarge the images once clicked on
+* "like button" for each image
+* "delete button" for each image
+
 ## Future steps
 * Add different fonts in order to make the web page a more personal touch.
-* Add images from further places in the usa, intercatively, by the "add" button. 
-* Add some more buttons in order to be able to edit further parts of the webpage, such as logos, etc...
+* Adding a form which enables to selected the most highly liked image of all the gallery.
+* Add some more buttons in order to be able to edit further parts of the webpage, such as logos and videos.
 
 ### Link to the page
 https://omri1287.github.io/web_project_4/
