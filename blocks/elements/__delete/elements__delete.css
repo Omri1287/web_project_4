@@ -3,12 +3,10 @@
     cursor: pointer;
     background-image: url(../../../images/Trash.svg);
     background-repeat: no-repeat;
-    background-color: white;
     border: none;
     width: 18px;
     position: absolute;
     height: 19.3px;
-    transition-duration: .4s;
     background-color: transparent;
     background-position: center;
     margin: 0;
