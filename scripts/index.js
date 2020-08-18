@@ -28,6 +28,8 @@ const closeImageModal = imageModal.querySelector('.modal__close-btn_type_image')
 const modalImg = document.getElementById("img-large");
 const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
 const imageModalCaption = imageModal.querySelector('.modal__caption');
+
+
 //new images template
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
 
@@ -72,8 +74,11 @@ function toggleModalWindow(e){
 //close modal
 function toggleModalWindowClose(e){
   e.classList.remove('modal_is-open'); 
-
 }
+//close the enlarged image by clicking anywhere
+imageModal.addEventListener('click', () => {
+  toggleModalWindow(imageModal);
+})
 
 //open the edit profile modal
  editButton.addEventListener('click', () => {
@@ -117,12 +122,22 @@ document.addEventListener('keydown', function(e) {
 
 //close and open enlarged image by clicking on the close btn
 closeImageModal.addEventListener('click', () => {
+
   toggleModalWindow(imageModal);
 })
-//close the enlarged image by clicking anywhere
-imageModal.addEventListener('click', () => {
+//close the enlarged image by clicking anywhere but the image
+imageModal.addEventListener('click', (event) => {
   toggleModalWindow(imageModal);
 })
+window.onclick = function(event) {
+  //alert(event.target)
+    if (event.target == modal) {
+        modal.style.display = "none";
+    } 
+  if(event.target == imageModal) {
+        imageModal.style.display = "none";      
+     }
+}
 
 //close and open enlarged image by clicking escape button
 document.addEventListener('keydown', function(e) {
