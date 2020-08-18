@@ -75,23 +75,24 @@ function toggleModalWindow(e){
 function toggleModalWindowClose(e){
   e.classList.remove('modal_is-open'); 
 }
-//close the enlarged image by clicking anywhere
-imageModal.addEventListener('click', () => {
-  toggleModalWindow(imageModal);
-})
 
 //open the edit profile modal
  editButton.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
 //close the edit profile modal by clicking on the close btn
-editCloseButton.addEventListener('click', () => {
-  toggleModalWindow(editProfileModal);
-})
-//close the edit profile modal by clicking anywhere
 editProfileModal.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
+editCloseButton.addEventListener('click', () => {
+  toggleModalWindow(editProfileModal);
+})
+//close the edit profile modal by clicking anywhere but the window
+editProfileModal.addEventListener('click', (event) => {
+  if(event.target !== event.currentTarget){
+    toggleModalWindow(editProfileModal);
+  }
+});
 //close the edit profile modal by clicking escape button
 document.addEventListener('keydown', function(e) {
   if(e.key === 'Escape'){
@@ -109,10 +110,15 @@ addImageButton.addEventListener('click', () => {
 closeAddImage.addEventListener('click', () => {
   toggleModalWindow(addImageModal);
 })
-//close the add image modal by clicking anywhere
+//close the add image modal by clicking anywhere but the window
 addImageModal.addEventListener('click', () => {
   toggleModalWindow(addImageModal);
 })
+addImageModal.addEventListener('click', (event) => {
+  if(event.target !== event.currentTarget){
+    toggleModalWindow(addImageModal);
+  }
+});
 //close the add image modal by clicking escape button
 document.addEventListener('keydown', function(e) {
   if(e.key === 'Escape'){
@@ -122,22 +128,18 @@ document.addEventListener('keydown', function(e) {
 
 //close and open enlarged image by clicking on the close btn
 closeImageModal.addEventListener('click', () => {
-
   toggleModalWindow(imageModal);
 })
 //close the enlarged image by clicking anywhere but the image
-imageModal.addEventListener('click', (event) => {
+imageModal.addEventListener('click', () => {
   toggleModalWindow(imageModal);
 })
-window.onclick = function(event) {
-  //alert(event.target)
-    if (event.target == modal) {
-        modal.style.display = "none";
-    } 
-  if(event.target == imageModal) {
-        imageModal.style.display = "none";      
-     }
-}
+imageModal.addEventListener('click', (event) => {
+  if(event.target !== event.currentTarget){
+    toggleModalWindow(imageModal);
+  }
+});
+
 
 //close and open enlarged image by clicking escape button
 document.addEventListener('keydown', function(e) {
