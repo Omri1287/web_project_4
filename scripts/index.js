@@ -36,7 +36,7 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 //list of originl images
 const list = document.querySelector('.elements__list');
 
-//original images (not sure why i need it)
+//original images 
 const initialCards = [
   {
     name: "Lago di Braies",
@@ -65,40 +65,76 @@ const initialCards = [
 ];
 
 //functions 
-//open the modal
+//open  modal
 function toggleModalWindow(e){ 
   e.classList.toggle('modal_is-open'); 
 } 
+//close modal
+function toggleModalWindowClose(e){
+  e.classList.remove('modal_is-open'); 
+
+}
 
 //open the edit profile modal
  editButton.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
-//close the edit profile modal
+//close the edit profile modal by clicking on the close btn
 editCloseButton.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
+//close the edit profile modal by clicking anywhere
+editProfileModal.addEventListener('click', () => {
+  toggleModalWindow(editProfileModal);
+})
+//close the edit profile modal by clicking escape button
+document.addEventListener('keydown', function(e) {
+  if(e.key === 'Escape'){
+    toggleModalWindowClose(editProfileModal);
+  }
+})
+
 
 //open the add image modal
 addImageButton.addEventListener('click', () => {
   toggleModalWindow(addImageModal);
 })
 
-//close the add image modal
+//close the add image modal by clicking on the close btn
 closeAddImage.addEventListener('click', () => {
   toggleModalWindow(addImageModal);
 })
-//enlarge image
+//close the add image modal by clicking anywhere
+addImageModal.addEventListener('click', () => {
+  toggleModalWindow(addImageModal);
+})
+//close the add image modal by clicking escape button
+document.addEventListener('keydown', function(e) {
+  if(e.key === 'Escape'){
+    toggleModalWindowClose(addImageModal);
+  }
+})
 
-
-//close enlarged image
+//close and open enlarged image by clicking on the close btn
 closeImageModal.addEventListener('click', () => {
   toggleModalWindow(imageModal);
 })
+//close the enlarged image by clicking anywhere
+imageModal.addEventListener('click', () => {
+  toggleModalWindow(imageModal);
+})
+
+//close and open enlarged image by clicking escape button
+document.addEventListener('keydown', function(e) {
+  if(e.key === 'Escape'){
+    toggleModalWindowClose(imageModal);
+  }
+})
+//dont close the modal when it's being clicked on
+
 
 //handle edit profile form
 const formSubmitHandler = (e) => {
-
     e.preventDefault(); 
     profileName.textContent = inputName.value; 
     profileDesc.textContent = inputDesc.value; 
@@ -108,7 +144,7 @@ const formSubmitHandler = (e) => {
 editForm.addEventListener('submit', formSubmitHandler);
 
 
-  //go through images list
+  //go through images list and create the cards from the list
   function renderImage(data) {
     list.prepend(createCard(data));
   }
@@ -124,7 +160,7 @@ function createCard(data) {
   const clickLike = cardElement.querySelector('.elements__heart');
   const deleteCardButton = cardElement.querySelector('.elements__delete');
 
-  // image name and image url
+  // receive image name and image url for the card
   cardTitle.textContent = data.name;
   cardImage.style.backgroundImage = `url(${data.link})`;
   //like button
@@ -136,12 +172,16 @@ function createCard(data) {
 
   deleteCardButton.addEventListener('click', (e) => {
     cardElement.remove();
+    //once clicked "delete" dont go over the entire function for the clicked card
     e.stopPropagation();
     });
   //Enlarging image
   cardImage.addEventListener('click', () => {
+    //enlarging the chosen url
     imageModalEnlarge.setAttribute('src', data.link);
+    //caption of the chosen link name
     imageModalCaption.textContent = data.name;
+    //enlarging the image once clicked on
     toggleModalWindow(imageModal);
   })
 
@@ -158,7 +198,9 @@ const addImageHandler = (e) => {
   const cardElement = createCard({
     name: addImageTitle.value, link: addImageUrl.value
   });
+  //insert into the images list
   list.prepend(cardElement);
+  //close the modal window once clicked "submit"
   toggleModalWindow(addImageModal);
 };
 //add new image once pressed 'submit'

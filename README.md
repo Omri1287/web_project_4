@@ -12,6 +12,8 @@ On top of that, I used functions in javascript in order to make the webpage inte
 * Enabling to enlarge the images once clicked on
 * "like button" for each image
 * "delete button" for each image
+* An option to close the popups by clicking anywhere outside the modal itself plus by pressing esc
+* Validating the forms, and restricting the info type inserted in the required fields. 
 
 ## Future steps
 * Add different fonts in order to make the web page a more personal touch.
