@@ -81,13 +81,14 @@ function toggleModalWindowClose(e){
   toggleModalWindow(editProfileModal);
 })
 //close the edit profile modal by clicking on the close btn
-editProfileModal.addEventListener('click', () => {
-  toggleModalWindow(editProfileModal);
-})
+
 editCloseButton.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
 //close the edit profile modal by clicking anywhere but the window
+editProfileModal.addEventListener('click', () => {
+  toggleModalWindow(editProfileModal);
+})
 editProfileModal.addEventListener('click', (event) => {
   if(event.target !== event.currentTarget){
     toggleModalWindow(editProfileModal);
@@ -202,11 +203,8 @@ function createCard(data) {
     toggleModalWindow(imageModal);
   })
 
-
   return cardElement;
 }
-
-
 
 //new image handler 
 
