@@ -33,6 +33,8 @@ const imageModalCaption = imageModal.querySelector('.modal__caption');
 //new images template
 const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
 
+//opened window
+const modalOpen = document.querySelector('.modal_is-open');
 
 //like button
 //list of originl images
@@ -67,13 +69,14 @@ const initialCards = [
 ];
 
 //functions 
-//open  modal
+//open and close modal
 function toggleModalWindow(e){ 
   e.classList.toggle('modal_is-open'); 
+  
 } 
 //close modal
-function toggleModalWindowClose(e){
-  e.classList.remove('modal_is-open'); 
+function windowCloseEscape(e){
+    e.classList.remove('modal_is-open')
 }
 
 //open the edit profile modal
@@ -85,21 +88,48 @@ function toggleModalWindowClose(e){
 editCloseButton.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
+// if (document.querySelector('.modal').classList.contains('modal_is-open')){
+//   document.onkeydown = function(evt) {
+//     if (evt.keyCode == 27) {
+//       console.log('press esc');s
+//       windowCloseEscape(editProfileModal);
+//       windowCloseEscape(addImageModal);
+//       windowCloseEscape(imageModal);
+
+//     }
+//   };
+// }
+document.addEventListener('keypress', event => {
+  console.log('hello');
+  if (event.code === 'Escape') {
+    console.log('press esc');
+    windowCloseEscape(editProfileModal);
+    windowCloseEscape(addImageModal);
+    windowCloseEscape(imageModal);
+
+  }
+})
+
 //close the edit profile modal by clicking anywhere but the window
-editProfileModal.addEventListener('click', () => {
+
+/*editProfileModal.addEventListener('click', (event) => {
+  toggleModalWindow(event);
+  if(event.target === event.currentTarget){
+    return;
+  } else {
   toggleModalWindow(editProfileModal);
-})
-editProfileModal.addEventListener('click', (event) => {
-  if(event.target !== event.currentTarget){
-    toggleModalWindow(editProfileModal);
   }
-});
+});*/
 //close the edit profile modal by clicking escape button
-document.addEventListener('keydown', function(e) {
+/*editProfileModal.addEventListener('click', function(e) {
+  toggleModalWindow(editProfileModal);
+  window.addEventListener('keydown', function (event) {
   if(e.key === 'Escape'){
-    toggleModalWindowClose(editProfileModal);
+    WindowCloseEscape(editProfileModal);
   }
 })
+*/
+
 
 
 //open the add image modal
@@ -121,11 +151,21 @@ addImageModal.addEventListener('click', (event) => {
   }
 });
 //close the add image modal by clicking escape button
-document.addEventListener('keydown', function(e) {
+/*document.addEventListener('keydown', function(e) {
   if(e.key === 'Escape'){
-    toggleModalWindowClose(addImageModal);
+    WindowCloseEscape(addImageModal);
   }
-})
+})*/
+if (!addImageModal.closed){
+  console.log('yay');
+  document.onkeydown = function(evt) {
+    if (evt.keyCode == 27) {
+      console.log("esc is pressed")
+      windowCloseEscape(addImageModal);
+    }
+  };
+}
+
 
 //close and open enlarged image by clicking on the close btn
 closeImageModal.addEventListener('click', () => {
@@ -135,6 +175,7 @@ closeImageModal.addEventListener('click', () => {
 imageModal.addEventListener('click', () => {
   toggleModalWindow(imageModal);
 })
+
 imageModal.addEventListener('click', (event) => {
   if(event.target !== event.currentTarget){
     toggleModalWindow(imageModal);
@@ -143,11 +184,16 @@ imageModal.addEventListener('click', (event) => {
 
 
 //close and open enlarged image by clicking escape button
-document.addEventListener('keydown', function(e) {
+/*document.addEventListener('keydown', function(e) {
   if(e.key === 'Escape'){
-    toggleModalWindowClose(imageModal);
+    WindowCloseEscape(imageModal);
   }
-})
+})*/
+document.onkeydown = function(evt) {
+  if (evt.keyCode === 27) {
+    windowCloseEscape(imageModal);
+  }
+};
 //dont close the modal when it's being clicked on
 
 
@@ -162,13 +208,13 @@ const formSubmitHandler = (e) => {
 editForm.addEventListener('submit', formSubmitHandler);
 
 
-  //go through images list and create the cards from the list
-  function renderImage(data) {
-    list.prepend(createCard(data));
-  }
-  initialCards.forEach((data) => {
-    renderImage(data)
-  })
+//go through images list and create the cards from the list
+function renderImage(data) {
+  list.prepend(createCard(data));
+}
+initialCards.forEach((data) => {
+  renderImage(data)
+})
 
 //create a new card
 function createCard(data) {
@@ -199,6 +245,7 @@ function createCard(data) {
     imageModalEnlarge.setAttribute('src', data.link);
     //caption of the chosen link name
     imageModalCaption.textContent = data.name;
+    imageModalEnlarge.setAttribute('alt', data.name)
     //enlarging the image once clicked on
     toggleModalWindow(imageModal);
   })
@@ -220,5 +267,6 @@ const addImageHandler = (e) => {
 };
 //add new image once pressed 'submit'
 addImageForm.addEventListener('submit', addImageHandler);
+
 
 

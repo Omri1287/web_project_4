@@ -7,6 +7,10 @@
 @import url(./__large-image/modal__large-image.css);
 @import url(./__caption/modal__caption.css);
 @import url(./__new-container/modal__new-container.css);
+@import url(./__error/modal__error.css);
+@import url(./__save/_disabled/modal__save_disabled.css);
+
+
 
 .modal{
     height: 100%;

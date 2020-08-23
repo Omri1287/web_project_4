@@ -41,12 +41,12 @@
                 <button class="modal__close-btn modal__close-btn_type_edit-profile"></button>
                 <form action="#" class="modal__form modal__form_type_edit-profile">
                     <h2 class="modal__title modal__title_type_edit-profile">Edit profile</h2>
-                    <input id="profile-name" type="text" placeholder="Jaque Cousteau" class="modal__input modal__input_name" required maxlength="40" minlength="2">
+                    <input id="profile-name" type="text" placeholder="Jaques Cousteau" class="modal__input modal__input_name" value="Jacques Cousteau" required maxlength="40" minlength="2">
                     <span id="profile-name-error" class="modal__error"></span>
-                    <input id="profile-desc" type="text" placeholder="Explorer" class="modal__input modal__input_desc" required maxlength="200" minlength="2"> 
+                    <input id="profile-desc" type="text" placeholder="Explorer" class="modal__input modal__input_desc" value="Explorer" required maxlength="200" minlength="2"> 
                     <span id="profile-desc-error" class="modal__error"></span>
 
-                    <Button class="modal__save modal__save_type_edit-profile">Save</button>
+                    <Button class="modal__save modal__save_type_edit-profile modal__save_disabled">Save</button>
                 </form>
             </div>
         </div>
@@ -61,7 +61,7 @@
                     <input id="card-link" type="url" placeholder="image-link" class="modal__input modal__input_url" name="link" required> 
                     <span id="card-link-error"class="modal__error"></span>
 
-                    <Button type="submit" class="modal__save modal__save_type_add-image">Create</button>
+                    <Button type="submit" class="modal__save modal__save_type_add-image modal__save_disabled">Create</button>
                 </form>
             </div>
         </div>
@@ -74,19 +74,6 @@
                 </figure>
             </div>
         </div>
-        <!--<template class="card-template">
-            <ul class="elements__item">
-                <li id="image-container" class="elements__image-container">
-                    <div class="elements__image">
-                        <button class="elements__delete"></button>
-                    </div>
-                </li>
-                <li id="title-container" class="elements__container">
-                    <h2 class="elements__title"></h2>
-                    <button class="elements__heart"></button>
-                </li>
-            </ul>
-        </template>-->
         <template class="card-template">
             <li class="elements__item">
                     <div class="elements__image">
@@ -99,6 +86,7 @@
                     </div>
             </li>
         </template>
+        <script src="./scripts/validation.js"></script>
         <script src="./scripts/index.js"></script>
     </div>  
 </body>
