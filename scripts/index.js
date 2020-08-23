@@ -74,6 +74,10 @@ function toggleModalWindow(e){
   e.classList.toggle('modal_is-open'); 
   
 } 
+function openWindow(e){ 
+  e.classList.add('modal_is-open'); 
+  
+} 
 //close modal
 function windowCloseEscape(e){
     e.classList.remove('modal_is-open')
@@ -81,54 +85,30 @@ function windowCloseEscape(e){
 
 //open the edit profile modal
  editButton.addEventListener('click', () => {
-  toggleModalWindow(editProfileModal);
+  openWindow(editProfileModal);
 })
 //close the edit profile modal by clicking on the close btn
 
 editCloseButton.addEventListener('click', () => {
   toggleModalWindow(editProfileModal);
 })
-// if (document.querySelector('.modal').classList.contains('modal_is-open')){
-//   document.onkeydown = function(evt) {
-//     if (evt.keyCode == 27) {
-//       console.log('press esc');s
-//       windowCloseEscape(editProfileModal);
-//       windowCloseEscape(addImageModal);
-//       windowCloseEscape(imageModal);
 
-//     }
-//   };
-// }
-document.addEventListener('keypress', event => {
-  console.log('hello');
-  if (event.code === 'Escape') {
-    console.log('press esc');
-    windowCloseEscape(editProfileModal);
-    windowCloseEscape(addImageModal);
-    windowCloseEscape(imageModal);
 
-  }
-})
 
 //close the edit profile modal by clicking anywhere but the window
 
-/*editProfileModal.addEventListener('click', (event) => {
-  toggleModalWindow(event);
-  if(event.target === event.currentTarget){
-    return;
-  } else {
-  toggleModalWindow(editProfileModal);
+document.addEventListener('click', (event) => {
+  openWindow(editProfileModal);
+
+  const hasOpenModal = Boolean(
+    document.querySelectorAll(".modal_is-open").length
+  );
+
+  if ((event.target !== event.currentTarget) &&  hasOpenModal) {
+    windowCloseEscape(editProfileModal);
   }
-});*/
-//close the edit profile modal by clicking escape button
-/*editProfileModal.addEventListener('click', function(e) {
-  toggleModalWindow(editProfileModal);
-  window.addEventListener('keydown', function (event) {
-  if(e.key === 'Escape'){
-    WindowCloseEscape(editProfileModal);
-  }
-})
-*/
+
+});
 
 
 
@@ -150,21 +130,7 @@ addImageModal.addEventListener('click', (event) => {
     toggleModalWindow(addImageModal);
   }
 });
-//close the add image modal by clicking escape button
-/*document.addEventListener('keydown', function(e) {
-  if(e.key === 'Escape'){
-    WindowCloseEscape(addImageModal);
-  }
-})*/
-if (!addImageModal.closed){
-  console.log('yay');
-  document.onkeydown = function(evt) {
-    if (evt.keyCode == 27) {
-      console.log("esc is pressed")
-      windowCloseEscape(addImageModal);
-    }
-  };
-}
+
 
 
 //close and open enlarged image by clicking on the close btn
@@ -181,19 +147,32 @@ imageModal.addEventListener('click', (event) => {
     toggleModalWindow(imageModal);
   }
 });
+//close a window when pressed esc
+document.addEventListener("keydown", (event) => {
+  const hasOpenModal = Boolean(
+    document.querySelectorAll(".modal_is-open").length
+  );
 
-
-//close and open enlarged image by clicking escape button
-/*document.addEventListener('keydown', function(e) {
-  if(e.key === 'Escape'){
-    WindowCloseEscape(imageModal);
-  }
-})*/
-document.onkeydown = function(evt) {
-  if (evt.keyCode === 27) {
+  if (event.code === "Escape" && hasOpenModal) {
+    windowCloseEscape(editProfileModal);
+    windowCloseEscape(addImageModal);
     windowCloseEscape(imageModal);
   }
-};
+});
+
+//close a window by clicking outside of the modal
+// document.addEventListener("click", (event) => {
+//   const hasOpenModal = Boolean(
+//     document.querySelectorAll(".modal_is-open").length
+//   );
+//     if (event.target !== event.currentTarget) {
+//       console.log("success");
+//       windowCloseEscape(editProfileModal);
+//       windowCloseEscape(addImageModal);
+//       windowCloseEscape(imageModal);
+//     }
+
+// });
 //dont close the modal when it's being clicked on
 
 
