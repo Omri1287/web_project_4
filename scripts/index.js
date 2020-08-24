@@ -86,7 +86,7 @@ function closeWindow(evt){
 function toggleModalWindow(evt) {
   const isModalOpened = evt.classList.contains('modal_is-open');
   //open or close modal
-  evt.classList.toggle('modal_is-open');
+   evt.classList.toggle('modal_is-open');
   //the current state of the modal is opened or closed
   currentOpenedModal = evt;
   //if the modal is open close it by clicking x or outside of modal
@@ -97,7 +97,6 @@ function toggleModalWindow(evt) {
         toggleModalWindow(currentOpenedModal);
   }
     });
-    currentOpenedModal = null;
   }
   else {
     evt.addEventListener('click', (evt) => {
