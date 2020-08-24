@@ -69,84 +69,45 @@ const initialCards = [
 ];
 
 //functions 
-//open and close modal
-function toggleModalWindow(e){ 
-  e.classList.toggle('modal_is-open'); 
-  
-} 
-function openWindow(e){ 
-  e.classList.add('modal_is-open'); 
+
+//temp variable for indicating if a certain modal is opened
+let currentOpenedModal = null;
+
+//open a modal
+function openWindow(evt){ 
+  evt.classList.add('modal_is-open'); 
   
 } 
 //close modal
-function windowCloseEscape(e){
-    e.classList.remove('modal_is-open')
+function closeWindow(evt){
+    evt.classList.remove('modal_is-open')
 }
-
-//open the edit profile modal
- editButton.addEventListener('click', () => {
-  openWindow(editProfileModal);
-})
-//close the edit profile modal by clicking on the close btn
-
-editCloseButton.addEventListener('click', () => {
-  toggleModalWindow(editProfileModal);
-})
-
-
-
-//close the edit profile modal by clicking anywhere but the window
-
-document.addEventListener('click', (event) => {
-  openWindow(editProfileModal);
-
-  const hasOpenModal = Boolean(
-    document.querySelectorAll(".modal_is-open").length
-  );
-
-  if ((event.target !== event.currentTarget) &&  hasOpenModal) {
-    windowCloseEscape(editProfileModal);
+//close or open a modal
+function toggleModalWindow(evt) {
+  const isModalOpened = evt.classList.contains('modal_is-open');
+  //open or close modal
+  evt.classList.toggle('modal_is-open');
+  //the current state of the modal is opened or closed
+  currentOpenedModal = evt;
+  //if the modal is open close it by clicking x or outside of modal
+  if (isModalOpened) {
+    evt.removeEventListener('click', (evt) => {
+      if (evt.target.classList.contains('modal__close-btn') ||
+      evt.target.classList.contains('modal')) {
+        toggleModalWindow(currentOpenedModal);
   }
-
-});
-
-
-
-//open the add image modal
-addImageButton.addEventListener('click', () => {
-  toggleModalWindow(addImageModal);
-})
-
-//close the add image modal by clicking on the close btn
-closeAddImage.addEventListener('click', () => {
-  toggleModalWindow(addImageModal);
-})
-//close the add image modal by clicking anywhere but the window
-addImageModal.addEventListener('click', () => {
-  toggleModalWindow(addImageModal);
-})
-addImageModal.addEventListener('click', (event) => {
-  if(event.target !== event.currentTarget){
-    toggleModalWindow(addImageModal);
+    });
+    currentOpenedModal = null;
   }
-});
-
-
-
-//close and open enlarged image by clicking on the close btn
-closeImageModal.addEventListener('click', () => {
-  toggleModalWindow(imageModal);
-})
-//close the enlarged image by clicking anywhere but the image
-imageModal.addEventListener('click', () => {
-  toggleModalWindow(imageModal);
-})
-
-imageModal.addEventListener('click', (event) => {
-  if(event.target !== event.currentTarget){
-    toggleModalWindow(imageModal);
+  else {
+    evt.addEventListener('click', (evt) => {
+      if (evt.target.classList.contains('modal__close-btn') ||
+      evt.target.classList.contains('modal')) {
+        toggleModalWindow(currentOpenedModal);
   }
-});
+    });
+  }
+}
 //close a window when pressed esc
 document.addEventListener("keydown", (event) => {
   const hasOpenModal = Boolean(
@@ -154,26 +115,21 @@ document.addEventListener("keydown", (event) => {
   );
 
   if (event.code === "Escape" && hasOpenModal) {
-    windowCloseEscape(editProfileModal);
-    windowCloseEscape(addImageModal);
-    windowCloseEscape(imageModal);
+    closeWindow(editProfileModal);
+    closeWindow(addImageModal);
+    closeWindow(imageModal);
   }
 });
+//open add image modal by clicking the button
+addImageButton.addEventListener('click', () => {
+  toggleModalWindow(addImageModal);
+});
 
-//close a window by clicking outside of the modal
-// document.addEventListener("click", (event) => {
-//   const hasOpenModal = Boolean(
-//     document.querySelectorAll(".modal_is-open").length
-//   );
-//     if (event.target !== event.currentTarget) {
-//       console.log("success");
-//       windowCloseEscape(editProfileModal);
-//       windowCloseEscape(addImageModal);
-//       windowCloseEscape(imageModal);
-//     }
+//open edit profile by clicking on the button
+editButton.addEventListener('click', () => {
+  toggleModalWindow(editProfileModal);
+});
 
-// });
-//dont close the modal when it's being clicked on
 
 
 //handle edit profile form
