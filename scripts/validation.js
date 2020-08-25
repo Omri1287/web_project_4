@@ -1,4 +1,3 @@
-const submitButtonSelector = document.querySelector('.modal__save');
 
 
 function showErrorMessage(input, form, errorClass, inputErrorClass){
@@ -24,6 +23,8 @@ function toggleButtonState(inputs, button, inactiveButtonClass){
     }
     else{
         button.classList.add(inactiveButtonClass);
+        submitButtonSelector.setAttribute("disabled", true);
+
     }
 }
 

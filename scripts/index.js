@@ -68,20 +68,11 @@ const initialCards = [
 }
 ];
 
-//functions 
-
+//opening and closing windows
+//
 //temp variable for indicating if a certain modal is opened
 let currentOpenedModal = null;
 
-//open a modal
-function openWindow(evt){ 
-  evt.classList.add('modal_is-open'); 
-  
-} 
-//close modal
-function closeWindow(evt){
-    evt.classList.remove('modal_is-open')
-}
 //close or open a modal
 function toggleModalWindow(evt) {
   const isModalOpened = evt.classList.contains('modal_is-open');
@@ -89,36 +80,56 @@ function toggleModalWindow(evt) {
    evt.classList.toggle('modal_is-open');
   //the current state of the modal is opened or closed
   currentOpenedModal = evt;
-  //if the modal is open close it by clicking x or outside of modal
+  //take off the listeners if the window is opened
   if (isModalOpened) {
+    //listener of closing window when clicked outside of it
     evt.removeEventListener('click', (evt) => {
       if (evt.target.classList.contains('modal__close-btn') ||
       evt.target.classList.contains('modal')) {
         toggleModalWindow(currentOpenedModal);
-  }
+      }
     });
+    //listener of closing window by pressing esc
+    document.removeEventListener('keydown', (evt) => {
+        const hasOpenModal = Boolean(
+          document.querySelectorAll(".modal_is-open").length
+        );
+        const openedModal = document.querySelector(".modal_is-open");
+        // const isModalOpened = event.classList.contains('modal_is-open');
+      
+        if (evt.code === "Escape" && hasOpenModal) {
+          openedModal.classList.remove('modal_is-open');
+       
+        }
+    })
   }
+  //add listeners when window is closed
   else {
+    
+    //listener of closing window when clicked outside of it
     evt.addEventListener('click', (evt) => {
       if (evt.target.classList.contains('modal__close-btn') ||
       evt.target.classList.contains('modal')) {
         toggleModalWindow(currentOpenedModal);
-  }
+      }
     });
+    //listener of closing window by pressing esc
+    document.addEventListener('keydown', (evt) => {
+      console.log('window is closed');
+
+      const hasOpenModal = Boolean(
+        document.querySelectorAll(".modal_is-open").length
+      );
+      const openedModal = document.querySelector(".modal_is-open");
+    
+      if (evt.code === "Escape" && hasOpenModal) {
+        openedModal.classList.remove('modal_is-open');
+     
+      }
+    })
   }
 }
-//close a window when pressed esc
-document.addEventListener("keydown", (event) => {
-  const hasOpenModal = Boolean(
-    document.querySelectorAll(".modal_is-open").length
-  );
 
-  if (event.code === "Escape" && hasOpenModal) {
-    closeWindow(editProfileModal);
-    closeWindow(addImageModal);
-    closeWindow(imageModal);
-  }
-});
 //open add image modal by clicking the button
 addImageButton.addEventListener('click', () => {
   toggleModalWindow(addImageModal);
@@ -130,7 +141,8 @@ editButton.addEventListener('click', () => {
 });
 
 
-
+//handling forms and images
+//
 //handle edit profile form
 const formSubmitHandler = (e) => {
     e.preventDefault(); 
