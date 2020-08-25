@@ -115,7 +115,6 @@ function toggleModalWindow(evt) {
     });
     //listener of closing window by pressing esc
     document.addEventListener('keydown', (evt) => {
-      console.log('window is closed');
 
       const hasOpenModal = Boolean(
         document.querySelectorAll(".modal_is-open").length

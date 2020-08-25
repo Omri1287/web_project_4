@@ -15,6 +15,8 @@ function hideErrorMessage(input, form, errorClass, inputErrorClass){
 
 function toggleButtonState(inputs, button, inactiveButtonClass){
     const isValid = inputs.every((input) => input.validity.valid);
+    const submitButtonSelector = document.querySelector('.modal__save');
+
 
     if(isValid){
         button.classList.remove(inactiveButtonClass);
@@ -48,6 +50,7 @@ function enableValidation({formSelector, inputSelector, submitButtonSelector, in
         form.addEventListener('submit', (e) => {
             e.preventDefault();
         });
+        
         const inputs = [...form.querySelectorAll(inputSelector)];
         const button = form.querySelector(submitButtonSelector);
 
