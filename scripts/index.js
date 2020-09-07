@@ -1,4 +1,24 @@
+import FormValidator from './FormValidator.js';
+import Card from './Card.js';
 
+
+const defaultConfig = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__save",
+  inactiveButtonClass: "modal__save_disabled",
+  inputErrorClass: "modal__input_type_error",
+  errorClass: "modal__error_visible"
+}
+
+const editProfileForm = editForm.querySelector('.modal__form')
+const addCardForm = addImageForm.querySelector('.modal__form');
+
+const editFormValidator = new FormValidator(defaultConfig, editProfileForm);
+const addFormValidator = new FormValidator(defaultConfig, addCardForm);
+
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 //edit profile
 const editProfileModal = document.querySelector('.modal_type_edit-profile')
@@ -15,7 +35,8 @@ const profileDesc = document.querySelector('.profile__text_desc');
 //add image 
 const addImageButton = document.querySelector('.profile__add-button');
 
-const addImageModal = document.querySelector('.modal_type_add-image');
+const add
+ = document.querySelector('.modal_type_add-image');
 
 const addImageForm = addImageModal.querySelector('.modal__form');
 const closeAddImage = addImageModal.querySelector('.modal__close-btn_type_add-image');
