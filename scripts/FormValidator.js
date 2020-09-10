@@ -12,7 +12,7 @@ export default class FormValidator{
     }
 
     _hideErrorMessage(input){
-        const error = this._formElement.queryselector('#' + input.id + '-error');
+        const error = this._formElement.querySelector('#' + input.id + '-error');
         error.classList.remove(this._settings.errorClass);
         input.classList.remove(this._settings.inputErrorClass);
         error.textContent = '';
@@ -48,7 +48,6 @@ export default class FormValidator{
     _setEventListeners(){
         const inputs = [...this._formElement.querySelectorAll(this._settings.inputSelector)];
         const button = this._formElement.querySelector(this._settings.submitButtonSelector);
-
         inputs.forEach(input => {
             input.addEventListener('input', () => {
               this._checkInputValidity(input);
@@ -64,6 +63,7 @@ export default class FormValidator{
 
     }    
 }
+
 const defaultConfig = {
     formSelector: ".modal__form",
     inputSelector: ".modal__input",
@@ -76,3 +76,4 @@ const defaultConfig = {
 const editForm = document.querySelector('.modal_type_edit-profile .modal__form')
 
 const formValidator = new FormValidator(defaultConfig, editForm); 
+
