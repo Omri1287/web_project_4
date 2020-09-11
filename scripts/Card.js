@@ -35,6 +35,7 @@ export default class Card{
         clickLike.addEventListener("click", function(e){
             e.target.classList.toggle("elements__heart-active");
             });
+            
         //delete image
         
         deleteCardButton.addEventListener('click', (e) => {
