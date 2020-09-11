@@ -11,19 +11,18 @@ const defaultConfig = {
   errorClass: "modal__error_visible"
 }
 
-const editProfileForm = document.querySelector('.modal__form')
 const addCardForm = document.querySelector('.modal__form');
 
-const editFormValidator = new FormValidator(defaultConfig, editProfileForm);
 const addFormValidator = new FormValidator(defaultConfig, addCardForm);
 
 
 //edit profile
 const editProfileModal = document.querySelector('.modal_type_edit-profile')
+const editProfileForm = editProfileModal.querySelector('.modal__form')
+const editFormValidator = new FormValidator(defaultConfig, editProfileForm);
 
 const editButton = document.querySelector('.profile__edit-button'); 
 const editCloseButton = document.querySelector('.modal__close-btn_type_edit-profile'); 
-const editForm = editProfileModal.querySelector('.modal__form'); 
 const inputName = document.querySelector('.modal__input_name'); 
 const inputDesc = document.querySelector('.modal__input_desc'); 
  
@@ -155,7 +154,7 @@ const formSubmitHandler = (e) => {
     toggleModalWindow(editProfileModal);
 } 
 //submit edit profile form
-editForm.addEventListener('submit', formSubmitHandler);
+editProfileForm.addEventListener('submit', formSubmitHandler);
 
 
 //go through images list and create the cards from the list

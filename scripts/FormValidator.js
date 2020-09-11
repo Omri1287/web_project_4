@@ -6,9 +6,14 @@ export default class FormValidator{
     }
     _showErrorMessage (input){
         const error = this._formElement.querySelector('#' + input.id + '-error');
+        console.log(input);
+        console.log(error);
+        console.log(this._formElement);
+        console.log(input.id);
         error.textContent = input.validationMessage;
         error.classList.add(this._settings.errorClass);
         input.classList.add(this._inputErrorClass);
+
     }
 
     _hideErrorMessage(input){
