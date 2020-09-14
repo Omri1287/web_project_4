@@ -1,4 +1,5 @@
 
+
 export default class FormValidator{
     constructor(settings, formElement){
         this._settings = settings;
@@ -6,20 +7,26 @@ export default class FormValidator{
     }
     _showErrorMessage (input){
         const error = this._formElement.querySelector('#' + input.id + '-error');
+        const errorClass =  this._formElement.querySelector(".modal__error_visible");
+        const inputErrorClass =  document.querySelector(".modal__input_type_error");
+
         console.log(input);
         console.log(error);
         console.log(this._formElement);
         console.log(input.id);
         error.textContent = input.validationMessage;
-        error.classList.add(this._settings.errorClass);
-        input.classList.add(this._inputErrorClass);
+        error.classList.add(errorClass);
+        input.classList.add(inputErrorClass);
 
     }
 
     _hideErrorMessage(input){
         const error = this._formElement.querySelector('#' + input.id + '-error');
-        error.classList.remove(this._settings.errorClass);
-        input.classList.remove(this._settings.inputErrorClass);
+        const errorClass =  this._formElement.querySelector(".modal__error_visible");
+        const inputErrorClass = document.querySelector(".modal__input_type_error");
+
+        error.classList.remove(errorClass);
+        input.classList.remove(inputErrorClass);
         error.textContent = '';
 
     }
@@ -39,14 +46,14 @@ export default class FormValidator{
     
         }
     }
-    _checkInputValidity(input, form, errorClass, inputErrorClass){
+    _checkInputValidity(input){
         if(input.validity.valid){
             //hide error messsage
-            this._hideErrorMessage(this._formElement, input, errorClass, inputErrorClass);
+            this._hideErrorMessage(input);
         }
         else{
             //show error message
-            this._showErrorMessage(this._formElement, input, errorClass, inputErrorClass);
+            this._showErrorMessage(input);
     
         }
     };
