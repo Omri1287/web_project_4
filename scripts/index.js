@@ -12,7 +12,6 @@ const defaultConfig = {
 }
 
 const addCardForm = document.querySelector('.modal__form');
-
 const addFormValidator = new FormValidator(defaultConfig, addCardForm);
 
 
@@ -32,13 +31,13 @@ const profileDesc = document.querySelector('.profile__text_desc');
 //add image 
 const addImageButton = document.querySelector('.profile__add-button');
 
-const addImageModal
- = document.querySelector('.modal_type_add-image');
+const addImageModal = document.querySelector('.modal_type_add-image');
 
-const addImageForm = document.querySelector('.modal__form');
+const addImageForm = addImageModal.querySelector('.modal__form');
 const closeAddImage = addImageModal.querySelector('.modal__close-btn_type_add-image');
 const addImageTitle = addImageModal.querySelector('.modal__input_image-name');
 const addImageUrl = addImageModal.querySelector('.modal__input_url');
+ 
 
 //image enlarged
 const imageModal = document.querySelector('.modal_type_image');
