@@ -29,7 +29,6 @@ export default class FormValidator{
     _toggleButtonState(inputs, button) {
         const isValid = inputs.every((input) => input.validity.valid);
         const submitButtonSelector = document.querySelector('.modal__save');
-        console.log(isValid);
         if (isValid) {
     
           button.classList.remove(this._inactiveButtonClass);

@@ -11,7 +11,7 @@ const defaultConfig = {
   errorClass: "modal__error_visible"
 }
 
-const addCardForm = document.querySelector('.modal__form');
+const addCardForm = document.querySelector('.modal__form_type_add-image');
 const addFormValidator = new FormValidator(defaultConfig, addCardForm);
 
 
