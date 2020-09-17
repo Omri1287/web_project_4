@@ -156,7 +156,7 @@ editProfileForm.addEventListener('submit', formSubmitHandler);
 //new image handler 
 const addImageHandler = (e) => {
   e.preventDefault();
-  const cardElement = createCard({
+  const cardElement = card.createCard({
     name: addImageTitle.value, link: addImageUrl.value
   });
   //insert into the images list
@@ -171,6 +171,8 @@ addImageForm.addEventListener('submit', addImageHandler);
 
 const card = new Card({text:'123', link: 'src'}, '.card-template');
 function renderImage(data) { 
+  console.log(card);
+  console.log(data);
   list.prepend(card.createCard(data)); 
 } 
 initialCards.forEach((data) => { 
