@@ -169,9 +169,9 @@ addImageForm.addEventListener('submit', addImageHandler);
 
 //create a new card
 
-const card = new Card({text:'123', link: 'src'}, '.card-template') 
+const card = new Card({text:'123', link: 'src'}, '.card-template');
 function renderImage(data) { 
-  list.prepend(createCard(data)); 
+  list.prepend(card.createCard(data)); 
 } 
 initialCards.forEach((data) => { 
   renderImage(data) 
