@@ -1,7 +1,6 @@
 import FormValidator from './FormValidator.js';
 import Card from './Card.js';
 
-
 const defaultConfig = {
   formSelector: ".modal__form",
   inputSelector: ".modal__input",
@@ -53,7 +52,6 @@ const cardTemplate = document.querySelector('.card-template').content.querySelec
 //opened window
 const modalOpen = document.querySelector('.modal_is-open');
 
-//like button
 //list of originl images
 const list = document.querySelector('.elements__list');
 
@@ -95,7 +93,7 @@ addFormValidator.enableValidation();
 let currentOpenedModal = null;
 
 //close or open a modal
-function toggleModalWindow(modal) {
+export function toggleModalWindow(modal) {
   const isModalOpened = modal.classList.contains('modal_is-open');
   //open or close modal
    modal.classList.toggle('modal_is-open');
@@ -155,54 +153,7 @@ const formSubmitHandler = (e) => {
 //submit edit profile form
 editProfileForm.addEventListener('submit', formSubmitHandler);
 
-
-//go through images list and create the cards from the list
-function renderImage(data) {
-  list.prepend(createCard(data));
-}
-initialCards.forEach((data) => {
-  renderImage(data)
-})
-
-//create a new card
-function createCard(data) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImage = cardElement.querySelector('.elements__image');
-  const cardTitle = cardElement.querySelector('.elements__title');
-  const clickLike = cardElement.querySelector('.elements__heart');
-  const deleteCardButton = cardElement.querySelector('.elements__delete');
-
-  // receive image name and image url for the card
-  cardTitle.textContent = data.name;
-  cardImage.style.backgroundImage = `url(${data.link})`;
-  //like button
-
-  clickLike.addEventListener("click", function(e){
-    e.target.classList.toggle("elements__heart-active");
-  });
-    //delete image
-
-  deleteCardButton.addEventListener('click', (e) => {
-    cardElement.remove();
-    //once clicked "delete" dont go over the entire function for the clicked card
-    e.stopPropagation();
-    });
-  //Enlarging image
-  cardImage.addEventListener('click', () => {
-    //enlarging the chosen url
-    imageModalEnlarge.setAttribute('src', data.link);
-    //caption of the chosen link name
-    imageModalCaption.textContent = data.name;
-    imageModalEnlarge.setAttribute('alt', data.name)
-    //enlarging the image once clicked on
-    toggleModalWindow(imageModal);
-  })
-
-  return cardElement;
-}
-
 //new image handler 
-
 const addImageHandler = (e) => {
   e.preventDefault();
   const cardElement = createCard({
@@ -216,5 +167,13 @@ const addImageHandler = (e) => {
 //add new image once pressed 'submit'
 addImageForm.addEventListener('submit', addImageHandler);
 
+//create a new card
 
+const card = new Card({text:'123', link: 'src'}, '.card-template') 
+function renderImage(data) { 
+  list.prepend(createCard(data)); 
+} 
+initialCards.forEach((data) => { 
+  renderImage(data) 
+}) 
 
