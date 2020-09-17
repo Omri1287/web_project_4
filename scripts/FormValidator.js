@@ -4,6 +4,7 @@ export default class FormValidator{
     constructor(settings, formElement){
         this._settings = settings;
         this._formElement = formElement;
+        this._inactiveButtonClass = settings.inactiveButtonClass;
     }
     _showErrorMessage (input){
         const error = this._formElement.querySelector('#' + input.id + '-error');
@@ -25,15 +26,16 @@ export default class FormValidator{
         error.textContent = '';
 
     }
-    _toggleButtonState(inputs, button, inactiveButtonClass) {
+    _toggleButtonState(inputs, button) {
         const isValid = inputs.every((input) => input.validity.valid);
         const submitButtonSelector = document.querySelector('.modal__save');
+        console.log(isValid);
         if (isValid) {
     
-          button.classList.remove(inactiveButtonClass);
+          button.classList.remove(this._inactiveButtonClass);
           submitButtonSelector.removeAttribute("disabled");
         } else {
-          button.classList.add(inactiveButtonClass);
+          button.classList.add(this._inactiveButtonClass);
     
           submitButtonSelector.setAttribute("disabled", true);
         }
