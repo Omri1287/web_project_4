@@ -156,9 +156,10 @@ editProfileForm.addEventListener('submit', formSubmitHandler);
 //new image handler 
 const addImageHandler = (e) => {
   e.preventDefault();
-  const cardElement = card.createCard({
+  const cardInstance = new Card({
     name: addImageTitle.value, link: addImageUrl.value
-  });
+  }, '.card-template');
+  const cardElement = cardInstance.createCard();
   //insert into the images list
   list.prepend(cardElement);
   //close the modal window once clicked "submit"
@@ -169,13 +170,11 @@ addImageForm.addEventListener('submit', addImageHandler);
 
 //create a new card
 
-const card = new Card({text:'123', link: 'src'}, '.card-template');
-function renderImage(data) { 
-  console.log(card);
-  console.log(data);
-  list.prepend(card.createCard(data)); 
-} 
+
 initialCards.forEach((data) => { 
-  renderImage(data) 
-}) 
+  const cardInstance = new Card(data, '.card-template');
+  const cardElement = cardInstance.createCard();
+  list.prepend(cardElement);
+});
+
 

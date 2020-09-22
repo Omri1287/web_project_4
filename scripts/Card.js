@@ -2,53 +2,55 @@ import {toggleModalWindow} from './index.js'
 const imageModal = document.querySelector('.modal_type_image');
 const imageModalCaption = imageModal.querySelector('.modal__caption');
 const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
-const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
-const cardElement = cardTemplate.cloneNode(true);
-const cardImage = cardElement.querySelector('.elements__image');
+//const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
+//const cardElement = cardTemplate.cloneNode(true);
+//const cardImage = cardElement.querySelector('.elements__image');
 
 export default class Card{
     constructor(data,cardTemplateSelector){
         this._text = data.text;
         this._link = data.link;
         this._data = data;
-        this._cardTemplate = cardTemplate;
-        this._cardTemplate = document.querySelector(cardTemplateSelector).content.querySelector('.elements__item');
-    }
-    _handleDeleteCard (){
-        cardElement.remove();
-        //once clicked "delete" dont go over the entire function for the clicked card
-        e.stopPropagation();
+        this._cardTemplateSelector = cardTemplateSelector;
+
     }
 
+
     _addEventListeners(){
-        const cardImage = this._card.querySelector('.elements__image');
-        const clickLike = this._card.querySelector('.elements__heart');
-        const deleteCardButton = this._card.querySelector('.elements__delete');
+        const clickLike = this._cardElement.querySelector('.elements__heart');
+        const deleteCardButton = this._cardElement.querySelector('.elements__delete');
         clickLike.addEventListener("click", function(e){
             e.target.classList.toggle("elements__heart-active");
             });
         //delete image
         deleteCardButton.addEventListener('click', this._handleDeleteCard);
         //Enlarging image
-        cardImage.addEventListener('click', () => {
+        this._cardImage.addEventListener('click', () => {
             //enlarging the chosen url
-            imageModalEnlarge.setAttribute('src', data.link);
+            imageModalEnlarge.setAttribute('src', this._data.link);
             //caption of the chosen link name
-            imageModalCaption.textContent = data.name;
-            imageModalEnlarge.setAttribute('alt', data.name)
+            imageModalCaption.textContent = this._data.name;
+            imageModalEnlarge.setAttribute('alt', this._data.name)
             //enlarging the image once clicked on
             toggleModalWindow(imageModal);
         })
     }
 
     createCard() {
-        this._card = this._cardTemplate.cloneNode(true);
-        const cardTitle = this._card.querySelector('.elements__title');
+        this._cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector('.elements__item');
+        this._cardElement = this._cardTemplate.cloneNode(true);
+        this._cardImage = this._cardElement.querySelector('.elements__image');
+        this._cardTitle = this._cardElement.querySelector('.elements__title');
         // receive image name and image url for the card
-        cardTitle.textContent = this._data.name;
-        cardImage.style.backgroundImage = `url(${this._data.link})`;
-        //like button    
-        return this._card;
+        this._cardTitle.textContent = this._data.name;
+        this._cardImage.style.backgroundImage = `url(${this._data.link})`;
+        this._addEventListeners();
+        return this._cardElement;
+    }
+    _handleDeleteCard (e){
+        e.target.closest('.elements__item').remove();
+        //once clicked "delete" dont go over the entire function for the clicked card
+        e.stopPropagation();
     }
     
 }
