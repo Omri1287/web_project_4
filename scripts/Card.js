@@ -1,10 +1,6 @@
 import {toggleModalWindow} from './index.js'
-const imageModal = document.querySelector('.modal_type_image');
-const imageModalCaption = imageModal.querySelector('.modal__caption');
-const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
-//const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
-//const cardElement = cardTemplate.cloneNode(true);
-//const cardImage = cardElement.querySelector('.elements__image');
+
+
 
 export default class Card{
     constructor(data,cardTemplateSelector){
@@ -17,6 +13,9 @@ export default class Card{
 
 
     _addEventListeners(){
+        const imageModal = document.querySelector('.modal_type_image');
+        const imageModalCaption = imageModal.querySelector('.modal__caption');
+        const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
         const clickLike = this._cardElement.querySelector('.elements__heart');
         const deleteCardButton = this._cardElement.querySelector('.elements__delete');
         clickLike.addEventListener("click", function(e){

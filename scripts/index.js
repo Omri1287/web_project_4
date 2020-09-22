@@ -20,7 +20,6 @@ const editProfileForm = editProfileModal.querySelector('.modal__form')
 const editFormValidator = new FormValidator(defaultConfig, editProfileForm);
 
 const editButton = document.querySelector('.profile__edit-button'); 
-const editCloseButton = document.querySelector('.modal__close-btn_type_edit-profile'); 
 const inputName = document.querySelector('.modal__input_name'); 
 const inputDesc = document.querySelector('.modal__input_desc'); 
  
@@ -33,24 +32,8 @@ const addImageButton = document.querySelector('.profile__add-button');
 const addImageModal = document.querySelector('.modal_type_add-image');
 
 const addImageForm = addImageModal.querySelector('.modal__form');
-const closeAddImage = addImageModal.querySelector('.modal__close-btn_type_add-image');
 const addImageTitle = addImageModal.querySelector('.modal__input_image-name');
 const addImageUrl = addImageModal.querySelector('.modal__input_url');
- 
-
-//image enlarged
-const imageModal = document.querySelector('.modal_type_image');
-const closeImageModal = imageModal.querySelector('.modal__close-btn_type_image');
-const modalImg = document.getElementById("img-large");
-const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
-const imageModalCaption = imageModal.querySelector('.modal__caption');
-
-
-//new images template
-const cardTemplate = document.querySelector('.card-template').content.querySelector('.elements__item');
-
-//opened window
-const modalOpen = document.querySelector('.modal_is-open');
 
 //list of originl images
 const list = document.querySelector('.elements__list');
