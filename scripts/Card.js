@@ -2,8 +2,8 @@ import {toggleModalWindow} from './index.js'
 
 export default class Card{
     constructor(data,cardTemplateSelector){
-        this._text = data.text;
-        this._link = data.link;
+        //this._text = data.text;
+        //this._link = data.link;
         this._data = data;
         this._cardTemplateSelector = cardTemplateSelector;
     }
@@ -15,18 +15,15 @@ export default class Card{
     _likedCard (e){
         e.target.classList.toggle("elements__heart-active");
     }
-    _enlargeCard(){
+    _enlargeCard(e){
         const imageModal = document.querySelector('.modal_type_image');
         const imageModalCaption = imageModal.querySelector('.modal__caption');
         const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
         //enlarging the chosen url
-        console.log(imageModalEnlarge);
-        console.log(imageModalCaption);
-
-        imageModalEnlarge.src = this._link;
+        imageModalEnlarge.src = this._data.link;
         //caption of the chosen link name
-        imageModalCaption.textContent =  this._text;
-        imageModalEnlarge.setAttribute('alt', this._text)
+        imageModalCaption.textContent =  this._data.name;
+        imageModalEnlarge.setAttribute('alt', this._data.name)
         //enlarging the image once clicked on
         toggleModalWindow(imageModal);
     }
@@ -37,7 +34,7 @@ export default class Card{
         //delete image
         deleteCardButton.addEventListener('click', this._handleDeleteCard);
         //Enlarging image
-        this._cardImage.addEventListener('click', this._enlargeCard)
+        this._cardImage.addEventListener('click', this._enlargeCard.bind(this));
     }
     createCard() {
         this._cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector('.elements__item');
