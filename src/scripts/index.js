@@ -1,4 +1,4 @@
-import "../pages/index.css"; // add import of the main stylesheets file 
+import  "../pages/index.css"; // add import of the main stylesheets file 
 
 import FormValidator from './FormValidator.js';
 import Card from './Card.js';
@@ -7,6 +7,7 @@ import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
 import Section from '../scripts/Section.js';
 import UserInfo from '../scripts/UserInfo.js';
+
 
 const defaultConfig = {
   formSelector: ".modal__form",

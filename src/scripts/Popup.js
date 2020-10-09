@@ -3,11 +3,11 @@ class Popup {
         this._popupSelector = document.querySelector(popupSelector);
     }
     open(){
-        this._popupElement.classList.add('modal_is-open');
+        this._popupSelector.classList.add('modal_is-open');
         document.addEventListener('keyup', this._handleEscClose )
     }
     close(){
-        this._popupElement.classList.remove('modal_is-open');
+        this._popupSelector.classList.remove('modal_is-open');
         document.removeEventListener('keyup', this._handleEscClose )
 
     }

@@ -4,7 +4,7 @@
   "description": "educational platform",
   "main": "index.js",
   "scripts": {
-    "build": "rm -rf dist && webpack --display-error-details",
+    "build": "rm -rf dist && webpack",
     "dev": "webpack-dev-server --open --watch"
   },
   "repository": {
@@ -21,14 +21,14 @@
   },
   "homepage": "https://github.com/Omri1287/web_project_4#readme",
   "dependencies": {
-    "corejs": "^1.0.0"
+    "corejs": "^1.0.0",
+    "babel-polyfill": "^6.26.0"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "autoprefixer": "^9.8.0",
     "babel-loader": "^8.1.0",
-    "babel-polyfill": "^6.26.0",
     "css-loader": "^3.5.3",
     "cssnano": "^4.1.10",
     "file-loader": "^6.0.0",
