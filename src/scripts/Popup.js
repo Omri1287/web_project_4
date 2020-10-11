@@ -1,6 +1,8 @@
 class Popup {
     constructor(popupSelector) {
-        this._popupSelector = document.querySelector(popupSelector);
+        this._popupSelector = popupSelector;
+        this._handleEscClose = this._handleEscClose.bind(this);
+
     }
     open(){
         this._popupSelector.classList.add('modal_is-open');

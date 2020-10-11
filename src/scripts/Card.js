@@ -51,8 +51,8 @@ export default class Card{
     }
 }
     
-const enlargedImage = new PopupWithImage('.modal_type_image');
-enlargedImage.setEventListeners();
+/*const enlargedImage = new PopupWithImage('.modal_type_image');
+enlargedImage.setEventListeners();*/
 
 /*new Card (
     {

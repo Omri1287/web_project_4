@@ -43,6 +43,10 @@ const addImageForm = addImageModal.querySelector('.modal__form');
 const addImageTitle = addImageModal.querySelector('.modal__input_image-name');
 const addImageUrl = addImageModal.querySelector('.modal__input_url');
 
+//enlarged image 
+const imageModal = document.querySelector('.modal_type_image'); 
+const enlargedImage =  imageModal.querySelector('.modal_type_image');
+
 //list of originl images
 const list = document.querySelector('.elements__list');
 
@@ -146,11 +150,14 @@ imageModal.setEventListeners();*/
 //submit edit profile form
 //editProfileForm.addEventListener('submit', formSubmitHandler);
 
+//popup of image
+const imagePopup = new PopupWithImage(enlargedImage);
+imagePopup.setEventListeners();
 //add form
 const newCardPopup = new PopupWithForm({
   popupSelector:addImageModal,
   popupSubmition: (data) => {
-    PopupWithImage.open(data)
+    imagePopup.open(data)
   }
 })
 
