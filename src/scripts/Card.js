@@ -44,6 +44,7 @@ export default class Card{
         this._cardImage = this._cardElement.querySelector('.elements__image');
         this._cardTitle = this._cardElement.querySelector('.elements__title');
         // receive image name and image url for the card
+        console.log(this._data)
         this._cardTitle.textContent = this._data.name;
         this._cardImage.style.backgroundImage = `url(${this._data.link})`;
         this._addEventListeners();

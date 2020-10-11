@@ -45,10 +45,13 @@ const addImageUrl = addImageModal.querySelector('.modal__input_url');
 
 //enlarged image 
 const imageModal = document.querySelector('.modal_type_image'); 
-const enlargedImage =  imageModal.querySelector('.modal_type_image');
+const enlargedImage =  imageModal.querySelector('.modal__large-image');
 
 //list of originl images
 const list = document.querySelector('.elements__list');
+
+//card items
+const CardItems = document.querySelector('.elements__item')
 
 //original images 
 const initialCards = [
@@ -178,7 +181,6 @@ const userInfoPopup = new PopupWithForm({
 const cardList  = new Section({
   items: initialCards,
   renderer: (e) => {
-    e.preventDefault();
     const cardInstance = new Card({
       name: addImageTitle.value, link: addImageUrl.value
     }, '.card-template');
@@ -186,10 +188,9 @@ const cardList  = new Section({
     //insert into the images list
     cardList.addItem(cardElement);
   }
-},
-list)
+}, CardItems)
 
-// card list handler 
+// card list handler renders elements items
 cardList.renderItems();
 
 //open add image form 
