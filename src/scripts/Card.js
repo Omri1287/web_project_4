@@ -36,7 +36,7 @@ export default class Card{
         //delete image
         deleteCardButton.addEventListener('click', this._handleDeleteCard);
         //Enlarging image
-        this._cardImage.addEventListener('click', this.__handleCardClick(this.name, this.link));
+        this._cardImage.addEventListener('click', () => this.__handleCardClick());
     }
     createCard() {
         this._cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector('.elements__item');

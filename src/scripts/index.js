@@ -182,8 +182,10 @@ const cardList  = new Section({
   items: initialCards,
   renderer: (e) => {
     const cardInstance = new Card({
-      name: addImageTitle.value, link: addImageUrl.value
-    }, '.card-template');
+      data:{name: addImageTitle.value, link: addImageUrl.value
+    },
+    handleCardClick: () => imageModal.open(addImageTitle.value, addImageUrl.value)},
+    '.card-template');
     const cardElement = cardInstance.createCard();
     //insert into the images list
     cardList.addItem(cardElement);
@@ -192,6 +194,7 @@ const cardList  = new Section({
 
 // card list handler renders elements items
 cardList.renderItems();
+cardList.addItem(cardInstance.generateCard())
 
 //open add image form 
 addImageButton.addEventListener("click", () => {

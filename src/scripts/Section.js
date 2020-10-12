@@ -10,7 +10,7 @@ class Section {
         })
     }
     addItem(item){
-        this._cardList.append(item); 
+        this._cardList.prepend(item); 
     }
 
 }
