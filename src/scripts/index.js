@@ -50,9 +50,6 @@ const enlargedImage =  imageModal.querySelector('.modal__large-image');
 //list of originl images
 const list = document.querySelector('.elements__list');
 
-//card items
-const CardItems = document.querySelector('.elements__item')
-
 //original images 
 const initialCards = [
   {
@@ -178,7 +175,7 @@ const userInfoPopup = new PopupWithForm({
 });
 
 //card list
-const cardList  = new Section({
+const defaultList  = new Section({
   items: initialCards,
   renderer: (e) => {
     const cardInstance = new Card({
@@ -188,13 +185,12 @@ const cardList  = new Section({
     '.card-template');
     const cardElement = cardInstance.createCard();
     //insert into the images list
-    cardList.addItem(cardElement);
+    defaultList.addItem(cardElement);
   }
-}, CardItems)
+}, '.elements__list')
 
 // card list handler renders elements items
-cardList.renderItems();
-cardList.addItem(cardInstance.generateCard())
+defaultList.renderItems();
 
 //open add image form 
 addImageButton.addEventListener("click", () => {
@@ -205,7 +201,7 @@ addImageButton.addEventListener("click", () => {
 newCardPopup.setEventListeners();
 
 //handle aadding image to list
-addImageForm.addEventListener('submit', cardList);
+addImageForm.addEventListener('submit', defaultList);
 
 //open edit info form
 editButton.addEventListener("click", () => {
