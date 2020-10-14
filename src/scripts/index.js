@@ -149,6 +149,17 @@ imageModal.setEventListeners();*/
 } */
 //submit edit profile form
 //editProfileForm.addEventListener('submit', formSubmitHandler);
+//instance of card
+const cardAdded = () =>{
+  const cardInstance = new Card({
+    data:{name: addImageTitle.value, link: addImageUrl.value},
+    handleCardClick: () => imageModal.open(addImageTitle.value, addImageUrl.value)},
+    '.card-template');
+    const cardElement = cardInstance.createCard();
+    //insert into the images list
+    defaultList.addItem(cardElement);
+}
+
 
 //popup of image
 const imagePopup = new PopupWithImage(enlargedImage);
@@ -156,37 +167,27 @@ imagePopup.setEventListeners();
 //add form
 const newCardPopup = new PopupWithForm({
   popupSelector:addImageModal,
-  popupSubmition: (data) => {
-    imagePopup.open(data)
-  }
+  popupSubmition: (data) => cardAdded(data)
 })
 
 //close form 
-const closeForm = new PopupWithForm({
+/*const closeForm = new PopupWithForm({
   popupSelector: document.querySelector('.modal__close-btn')
-});
-    
+});*/
+
+
+const profileInfo = new UserInfo(inputName, inputDesc);
+
 //need to add edit form
 const userInfoPopup = new PopupWithForm({
   popupSelector: editProfileModal,
-  popupSubmition: (data) => {
-    UserInfo.setUserInfo(data)
-  }
+  popupSubmition: () => profileInfo.setUserInfo(inputName, inputDesc)
 });
 
 //card list
 const defaultList  = new Section({
   items: initialCards,
-  renderer: (e) => {
-    const cardInstance = new Card({
-      data:{name: addImageTitle.value, link: addImageUrl.value
-    },
-    handleCardClick: () => imageModal.open(addImageTitle.value, addImageUrl.value)},
-    '.card-template');
-    const cardElement = cardInstance.createCard();
-    //insert into the images list
-    defaultList.addItem(cardElement);
-  }
+  renderer: (data) => cardAdded(data)
 }, '.elements__list')
 
 // card list handler renders elements items
@@ -201,18 +202,25 @@ addImageButton.addEventListener("click", () => {
 newCardPopup.setEventListeners();
 
 //handle aadding image to list
-addImageForm.addEventListener('submit', defaultList);
+//addImageForm.addEventListener('submit', defaultList);
 
 //open edit info form
 editButton.addEventListener("click", () => {
-  userInfoPopup.open();
+  const user = profileInfo.getUserInfo;
+  inputName.value = user.name;
+  inputDesc.value = user.title;
+  editProfileModal.open();
 });
 
 //edit info  handler
 userInfoPopup.setEventListeners();
 
+
+// add listeners for edit-icon and add-icon
+addImageButton.addEventListener('click', () => addImageForm.open());
+
 //triger close window
-closeForm.setEventListeners();
+//closeForm.setEventListeners();
 
 /*const addImageHandler = (e) => {
   e.preventDefault();
