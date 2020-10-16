@@ -176,13 +176,7 @@ const newCardPopup = new PopupWithForm({
 });*/
 
 
-const profileInfo = new UserInfo(inputName, inputDesc);
 
-//need to add edit form
-const userInfoPopup = new PopupWithForm({
-  popupSelector: editProfileModal,
-  popupSubmition: () => profileInfo.setUserInfo(inputName, inputDesc)
-});
 
 //card list
 const defaultList  = new Section({
@@ -213,11 +207,12 @@ editButton.addEventListener("click", () => {
 });
 
 //edit info  handler
-userInfoPopup.setEventListeners();
+
+imagePopup.setEventListeners();
 
 
 // add listeners for edit-icon and add-icon
-addImageButton.addEventListener('click', () => addImageForm.open());
+addImageButton.addEventListener('click', () => addImageModal.open());
 
 //triger close window
 //closeForm.setEventListeners();
