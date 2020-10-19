@@ -150,19 +150,16 @@ imageModal.setEventListeners();*/
 //submit edit profile form
 //editProfileForm.addEventListener('submit', formSubmitHandler);
 //instance of card
-const cardAdded = () =>{
-  const cardInstance = new Card({
-    data:{name: addImageTitle.value, link: addImageUrl.value},
-    handleCardClick: () => imageModal.open(addImageTitle.value, addImageUrl.value)},
-    '.card-template');
+const cardAdded = (data) =>{
+  const handleCardClick = (addImageTitle) => (addImageTitle.value, addImageUrl.value)
+  const cardInstance = new Card(data, handleCardClick, '.card-template')
     const cardElement = cardInstance.createCard();
     //insert into the images list
     defaultList.addItem(cardElement);
 }
 
-
 //popup of image
-const imagePopup = new PopupWithImage(enlargedImage);
+const imagePopup = new PopupWithImage(imageModal);
 imagePopup.setEventListeners();
 //add form
 const newCardPopup = new PopupWithForm({
@@ -174,16 +171,29 @@ const newCardPopup = new PopupWithForm({
 /*const closeForm = new PopupWithForm({
   popupSelector: document.querySelector('.modal__close-btn')
 });*/
+const profileInfo = new UserInfo(inputName, inputDesc);
 
-
+const profileForm = new PopupWithForm(
+  {popupSelector: editProfileModal, 
+    popupSubmition: (data) => profileInfo.setUserInfo(data)});
 
 
 //card list
-const defaultList  = new Section({
+/*const defaultList  = new Section({
   items: initialCards,
-  renderer: (data) => cardAdded(data)
-}, '.elements__list')
+  renderer: (data) => {
+    const cardInstance = new Card({
+      data:{name: initialCards.name, link: initialCards.link},
+      handleCardClick: () => imageModal.open(initialCards.name, initialCards.link)},
+      '.card-template');
+    const cardElement = cardInstance.createCard();
+    defaultList.addItem(cardElement);
+    },
+}, '.elements__list')*/
 
+const defaultList = new Section({
+  items: initialCards,
+  renderer: (data) => cardAdded(data)},'.elements__list');
 // card list handler renders elements items
 defaultList.renderItems();
 
@@ -199,20 +209,23 @@ newCardPopup.setEventListeners();
 //addImageForm.addEventListener('submit', defaultList);
 
 //open edit info form
-editButton.addEventListener("click", () => {
+editButton.addEventListener('click', () => {
   const user = profileInfo.getUserInfo;
   inputName.value = user.name;
   inputDesc.value = user.title;
-  editProfileModal.open();
-});
-
+  profileForm.open();
+})
 //edit info  handler
 
-imagePopup.setEventListeners();
+profileForm.setEventListeners();
+
+
 
 
 // add listeners for edit-icon and add-icon
-addImageButton.addEventListener('click', () => addImageModal.open());
+/*addImageButton.addEventListener('click',function(){
+  addImageModal.open();
+} );*/
 
 //triger close window
 //closeForm.setEventListeners();

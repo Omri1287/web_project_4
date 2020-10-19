@@ -14,18 +14,17 @@ class Popup {
 
     }
     _handleEscClose(e){
-        if(e.which == 27){
+        if(e.key === "Escape"){
             this.close()
         }
     }
     setEventListeners() {
         this._popupSelector.addEventListener('click', (e) => {
-            if(e.target.classList.contains('modal__close-btn') || e.target.closest('modal')){
-                e.close();
-            };
+            if(e.target.classList.contains('.modal_is-open') || e.target.closest('modal') || e.target.classList.contains('.modal__close-btn')){
+                this.close();
+            }
         })
     }
 }
 
 export default Popup;
-
