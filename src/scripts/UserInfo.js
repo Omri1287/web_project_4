@@ -1,14 +1,16 @@
+ import { profileName, profileDesc } from '../scripts/index.js';
+
 export default class UserInfo {
-    constructor(name, desc){
-        this._name = name;
+    constructor(title, desc){
+        this._title = title;
         this._desc = desc;
     }
     getUserInfo(){
-        this._userInfo = {name: this._name.textContent, desc:this._desc.textContent};
-        return this._userInfo;
+        return this._userInfo = {title: this._title.textContent, desc:this._desc.textContent};
     }
-    setUserInfo({name, desc}){
-        this._name = name; 
-        this._desc = desc; 
+    setUserInfo(title, desc){
+        this._userInfo = { title, desc };
+        profileName.textContent = this._userInfo.title;
+        profileDesc.textContent = this._userInfo.desc;
     }
 }

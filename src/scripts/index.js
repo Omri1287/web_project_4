@@ -172,11 +172,11 @@ const newCardPopup = new PopupWithForm({
 /*const closeForm = new PopupWithForm({
   popupSelector: document.querySelector('.modal__close-btn')
 });*/
-const profileInfo = new UserInfo(inputName, inputDesc);
+const profileInfo = new UserInfo(profileName, profileDesc);
 
 const profileForm = new PopupWithForm(
   {popupSelector: editProfileModal, 
-    popupSubmition: () => profileInfo.setUserInfo({inputName, inputDesc})});
+    popupSubmition: () => profileInfo.setUserInfo(inputName.value, inputDesc.value)})
 
 
 //card list
@@ -212,8 +212,8 @@ newCardPopup.setEventListeners();
 //open edit info form
 editButton.addEventListener('click', () => {
   const user = profileInfo.getUserInfo;
-  profileName.value = user.inputName; 
-  profileDesc.value = user.inputDesc; 
+  inputName.value = user.title; 
+  inputDesc.value = user.desc; 
   profileForm.open();
 })
 //edit info  handler
@@ -255,3 +255,4 @@ initialCards.forEach((data) => {
 });
 */
 
+export { profileName, profileDesc }
