@@ -45,7 +45,8 @@ const addImageUrl = addImageModal.querySelector('.modal__input_url');
 
 //enlarged image 
 const imageModal = document.querySelector('.modal_type_image'); 
-const enlargedImage =  imageModal.querySelector('.modal__large-image');
+//const enlargedImage =  imageModal.querySelector('.modal__large-image');
+//imageModalEnlarge.src = this._data.link;
 
 //list of originl images
 const list = document.querySelector('.elements__list');
@@ -175,7 +176,7 @@ const profileInfo = new UserInfo(inputName, inputDesc);
 
 const profileForm = new PopupWithForm(
   {popupSelector: editProfileModal, 
-    popupSubmition: (data) => profileInfo.setUserInfo(data)});
+    popupSubmition: () => profileInfo.setUserInfo({inputName, inputDesc})});
 
 
 //card list
@@ -211,8 +212,8 @@ newCardPopup.setEventListeners();
 //open edit info form
 editButton.addEventListener('click', () => {
   const user = profileInfo.getUserInfo;
-  inputName.value = user.name;
-  inputDesc.value = user.title;
+  profileName.value = user.inputName; 
+  profileDesc.value = user.inputDesc; 
   profileForm.open();
 })
 //edit info  handler

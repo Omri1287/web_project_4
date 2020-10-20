@@ -43,6 +43,13 @@ export default class Card{
         this._cardElement = this._cardTemplate.cloneNode(true);
         this._cardImage = this._cardElement.querySelector('.elements__image');
         this._cardTitle = this._cardElement.querySelector('.elements__title');
+        const imageModal = document.querySelector('.modal_type_image'); 
+
+        const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
+        imageModalEnlarge.src = this._data.link;
+
+        imageModalEnlarge.setAttribute('alt', this._data.name)
+
         // receive image name and image url for the card
         console.log(this._data)
         this._cardTitle.textContent = this._data.name;
