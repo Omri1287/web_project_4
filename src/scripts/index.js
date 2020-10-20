@@ -45,7 +45,7 @@ const addImageUrl = addImageModal.querySelector('.modal__input_url');
 
 //enlarged image 
 const imageModal = document.querySelector('.modal_type_image'); 
-//const enlargedImage =  imageModal.querySelector('.modal__large-image');
+const enlargedImage =  imageModal.querySelector('.modal__large-image');
 //imageModalEnlarge.src = this._data.link;
 
 //list of originl images
@@ -152,8 +152,11 @@ imageModal.setEventListeners();*/
 //editProfileForm.addEventListener('submit', formSubmitHandler);
 //instance of card
 const cardAdded = (data) =>{
-  const handleCardClick = (addImageTitle) => (addImageTitle.value, addImageUrl.value)
-  const cardInstance = new Card(data, handleCardClick, '.card-template')
+  //const handleCardClick = () => {
+    //imagePopup.open(data);
+  
+  const cardInstance = new Card({data, handleCardClick: () => {
+    imagePopup.open(data)}}, '.card-template')
     const cardElement = cardInstance.createCard();
     //insert into the images list
     defaultList.addItem(cardElement);
@@ -255,4 +258,4 @@ initialCards.forEach((data) => {
 });
 */
 
-export { profileName, profileDesc }
+export { profileName, profileDesc, imageModal, enlargedImage }

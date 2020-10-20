@@ -1,11 +1,11 @@
-import {toggleModalWindow} from './index.js'
-import PopupWithImage from './popupWithImage.js';
+
+
 
 export default class Card{
-    constructor(data, handleCardClick, cardTemplateSelector){
-        //this._text = data.text;
-        //this._link = data.link;
-        this._data = data;
+    constructor({data, handleCardClick}, cardTemplateSelector){
+        this._name = data.name;
+        this._link = data.link;
+        //this._data = data;
         this._cardTemplateSelector = cardTemplateSelector;
         this._handleCardClick = handleCardClick;
     }
@@ -36,26 +36,29 @@ export default class Card{
         //delete image
         deleteCardButton.addEventListener('click', this._handleDeleteCard);
         //Enlarging image
-        this._cardImage.addEventListener('click', this.__handleCardClick);
+        this._cardImage.addEventListener('click', () =>{
+            this.__handleCardClick({ name: this._name, link: this._link })
+        });
     }
     createCard() {
         this._cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector('.elements__item');
         this._cardElement = this._cardTemplate.cloneNode(true);
-        this._cardImage = this._cardElement.querySelector('.elements__image');
+        this._cardElement.querySelector('.elements__title').textContent = this._name;
+        this._cardElement.querySelector('.elements__image').style.backgroundImage = `url(${this._link})`;
+        this._addEventListeners;
+        return this._cardElement;
+        /*this._cardImage = this._cardElement.querySelector('.elements__image');
         this._cardTitle = this._cardElement.querySelector('.elements__title');
-        const imageModal = document.querySelector('.modal_type_image'); 
-
-        const imageModalEnlarge = imageModal.querySelector('.modal__large-image');
-        imageModalEnlarge.src = this._data.link;
-
-        imageModalEnlarge.setAttribute('alt', this._data.name)
+        this._cardImage =
+        this._cardImage =
+        enlargedImage.src = this._name.link;
+        enlargedImage.setAttribute('alt', this._data.name);
 
         // receive image name and image url for the card
-        console.log(this._data)
         this._cardTitle.textContent = this._data.name;
         this._cardImage.style.backgroundImage = `url(${this._data.link})`;
         this._addEventListeners();
-        return this._cardElement;
+        return this._cardElement;*/
     }
 }
     
