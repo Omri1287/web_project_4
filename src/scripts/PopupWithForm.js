@@ -25,9 +25,3 @@ export default class PopupWithForm extends Popup {
           super.setEventListeners();               
     }
 }
-
-
-const inputName = document.querySelector('.modal__input_name'); 
-const inputDesc = document.querySelector('.modal__input_desc'); 
-const profileName = document.querySelector('.profile__text_name'); 
-const profileDesc = document.querySelector('.profile__text_desc');
