@@ -1,4 +1,4 @@
-class Popup {
+export default class Popup {
     constructor(popupSelector) {
         this._popupSelector = popupSelector;
         this._handleEscClose = this._handleEscClose.bind(this);
@@ -26,5 +26,3 @@ class Popup {
         })
     }
 }
-
-export default Popup;

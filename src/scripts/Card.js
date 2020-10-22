@@ -21,15 +21,17 @@ export default class Card{
         //delete image
         deleteCardButton.addEventListener('click', this._handleDeleteCard);
         //Enlarging image
-        this._cardElement.addEventListener('click', () =>{
+        this._cardImage.addEventListener('click', () =>{
             this._handleCardClick({ name: this._name, link: this._link })
         });
     }
     createCard() {
         this._cardTemplate = document.querySelector(this._cardTemplateSelector).content.querySelector('.elements__item');
         this._cardElement = this._cardTemplate.cloneNode(true);
-        this._cardElement.querySelector('.elements__title').textContent = this._name;
-        this._cardElement.querySelector('.elements__image').style.backgroundImage = `url(${this._link})`;
+        this._cardTitle = this._cardElement.querySelector('.elements__title')
+        this._cardImage = this._cardElement.querySelector('.elements__image')
+        this._cardTitle.textContent = this._name;
+        this._cardImage.style.backgroundImage = `url(${this._link})`;
         this._addEventListeners();
         return this._cardElement;
     }

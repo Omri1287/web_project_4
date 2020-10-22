@@ -1,7 +1,6 @@
 import  "../pages/index.css"; 
 import FormValidator from './FormValidator.js';
-import Card from './Card.js';
-import Popup from './Popup.js';
+import Card from '../scripts/Card.js';
 import PopupWithImage from '../scripts/PopupWithImage.js';
 import PopupWithForm from '../scripts/PopupWithForm.js';
 import Section from '../scripts/Section.js';
@@ -123,8 +122,8 @@ newCardPopup.setEventListeners();
 //open edit info form
 editButton.addEventListener('click', () => {
   const user = profileInfo.getUserInfo;
-  inputName.value = user.title; 
-  inputDesc.value = user.desc; 
+  profileName.value = user.title; 
+  profileDesc.value = user.desc; 
   profileForm.open();
 })
 
