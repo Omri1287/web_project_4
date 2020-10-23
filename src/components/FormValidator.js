@@ -1,5 +1,3 @@
-
-
 export default class FormValidator{
     constructor(settings, formElement){
         this._settings = settings;
@@ -11,8 +9,8 @@ export default class FormValidator{
         const errorClass =  this._formElement.querySelector(".modal__error_visible");
         const inputErrorClass =  document.querySelector(".modal__input_type_error");
         error.textContent = input.validationMessage;
-        error.classList.add(errorClass);
-        input.classList.add(inputErrorClass);
+        error.classList.add(this._settings.errorClass);
+        input.classList.add(this._settings.inputErrorClass);
 
     }
 
@@ -21,8 +19,8 @@ export default class FormValidator{
         const errorClass =  this._formElement.querySelector(".modal__error_visible");
         const inputErrorClass = document.querySelector(".modal__input_type_error");
 
-        error.classList.remove(errorClass);
-        input.classList.remove(inputErrorClass);
+        error.classList.remove(this._settings.errorClass);
+        input.classList.remove(this._settings.inputErrorClass);
         error.textContent = '';
 
     }

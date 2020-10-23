@@ -1,10 +1,10 @@
 import  "../pages/index.css"; 
-import FormValidator from './FormValidator.js';
-import Card from '../scripts/Card.js';
-import PopupWithImage from '../scripts/PopupWithImage.js';
-import PopupWithForm from '../scripts/PopupWithForm.js';
-import Section from '../scripts/Section.js';
-import UserInfo from '../scripts/UserInfo.js';
+import FormValidator from '../components/FormValidator.js';
+import Card from '../components/Card.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import PopupWithForm from '../components/PopupWithForm.js';
+import Section from '../components/Section.js';
+import UserInfo from '../components/UserInfo.js';
 
 const defaultConfig = {
   formSelector: ".modal__form",
@@ -121,7 +121,7 @@ newCardPopup.setEventListeners();
 
 //open edit info form
 editButton.addEventListener('click', () => {
-  const user = profileInfo.getUserInfo;
+  const user = profileInfo.getUserInfo();
   profileName.value = user.title; 
   profileDesc.value = user.desc; 
   profileForm.open();

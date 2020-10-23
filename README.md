@@ -6,6 +6,7 @@ I have built this webpage using flexbox and grid. The webpage is about a trip ar
 I have made a responsive web design and it should look good on all of the most popular screen sizes, therefor I used media queries. For texts I used "Inter" font family. The CSS classes and files were organized according to the BEM methodology. 
 On top of that, I used functions in javascript in order to make the webpage interactive, and to be able to make changes inside it. In this case, I added an option to edit the name and description on the profile part. 
 The webpage also consists modular JS, and contains script files dedicated for classes.  
+I also set up webpack bundling and building in order to bundle JavaScript files for usage in a browser. It enables us to transform, bundle, or package just about any resource or asset like HTML, CSS, and images.
 
 ## JS features
 * The option to edit the profile in the page, and change the name and dscription
@@ -15,6 +16,7 @@ The webpage also consists modular JS, and contains script files dedicated for cl
 * "delete button" for each image
 * An option to close the popups by clicking anywhere outside the modal itself plus by pressing esc
 * Validating the forms, and restricting the info type inserted in the required fields. 
+* The different classes are divided into files for each of their own.
 
 ## Future steps
 * Add different fonts in order to make the web page a more personal touch.
