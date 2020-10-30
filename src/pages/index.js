@@ -5,6 +5,8 @@ import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/PopupWithForm.js';
 import Section from '../components/Section.js';
 import UserInfo from '../components/UserInfo.js';
+import Api from '../components/Api.js';
+
 
 const defaultConfig = {
   formSelector: ".modal__form",
@@ -74,7 +76,7 @@ addFormValidator.enableValidation();
 
 
 //instance of card
-const cardAdded = (data) =>{
+/*const cardAdded = (data) =>{
 
   
   const cardInstance = new Card({data, handleCardClick: ({name, link}) => {
@@ -82,7 +84,7 @@ const cardAdded = (data) =>{
     const cardElement = cardInstance.createCard();
     //insert into the images list
     defaultList.addItem(cardElement);
-}
+}*/
 
 //popup of image
 const imagePopup = new PopupWithImage(imageModal);
@@ -90,7 +92,15 @@ imagePopup.setEventListeners();
 //add form
 const newCardPopup = new PopupWithForm({
   popupSelector:addImageModal,
-  popupSubmition: (data) => cardAdded(data)
+  popupSubmition: (data) => 
+    api.addCard(data)
+    .then(res => {
+      const cardInstance = new Card({data, handleCardClick: ({name, link}) => {
+        imagePopup.open(link, name)}}, '.card-template')
+        const cardElement = cardInstance.createCard();
+        //insert into the images list
+        defaultList.addItem(cardElement)
+    })
 })
 
 //close form 
@@ -105,19 +115,16 @@ const profileForm = new PopupWithForm(
 
 //card list
 
-const defaultList = new Section({
+/*const defaultList = new Section({
   items: initialCards,
   renderer: (data) => cardAdded(data)},'.elements__list');
 // card list handler renders elements items
-defaultList.renderItems();
+defaultList.renderItems();*/
 
 //open add image form 
-addImageButton.addEventListener("click", () => {
-  newCardPopup.open();
-});
 
-//add image handler
-newCardPopup.setEventListeners();
+
+
 
 //open edit info form
 editButton.addEventListener('click', () => {
@@ -129,5 +136,48 @@ editButton.addEventListener('click', () => {
 
 //edit info  handler
 profileForm.setEventListeners();
+
+//api instance
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/group-5",
+  headers: {
+    authorization: "8e18e1ba-d6e7-4a4b-a525-0db2d13feedb",
+    "Content-Type": "application/json"
+  }
+}); 
+
+api.getCardList().then(res => {
+  const defaultList = new Section({
+    items: res,
+    renderer: (data) => cardAdded(data)},'.elements__list');
+  // card list handler renders elements items
+  defaultList.renderItems();
+  const newCardPopup = new PopupWithForm({
+    popupSelector:addImageModal,
+    popupSubmition: (data) => 
+      api.addCard(data)
+      .then(res => {
+        const cardInstance = new Card({data, 
+          handleCardClick: ({name, link}) => {
+          imagePopup.open(link, name)}, 
+          handleDeleteClick: (cardId) => {
+            api.removeCard(cardId)
+          }}, '.card-template')
+          const cardElement = cardInstance.createCard();
+          //insert into the images list
+          defaultList.addItem(cardElement)
+      })
+  })
+  addImageButton.addEventListener("click", () => {
+    newCardPopup.open();
+  });
+  //add image handler
+  newCardPopup.setEventListeners();
+})
+
+api.getUserInfo().then(res => {
+  console('profile', res);
+  profileInfo.setUserInfo({profileName: res.title, profileDesc: res.desc})
+})
 
 export { profileName, profileDesc, imageModal, enlargedImage }

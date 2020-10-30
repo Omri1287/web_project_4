@@ -1,10 +1,17 @@
 export default class Card{
-    constructor({data, handleCardClick}, cardTemplateSelector){
+    constructor({data, handleCardClick, handleDeleteClick}, cardTemplateSelector){
         this._name = data.name;
         this._link = data.link;
         this._cardTemplateSelector = cardTemplateSelector;
         this._handleCardClick = handleCardClick;
+        this._id = data.id;
+        this._handleDeleteClick = handleDeleteClick;
     }
+
+    id(){
+        return this._id();
+    }
+
     _handleDeleteCard (e){
         e.target.closest('.elements__item').remove();
         //once clicked "delete" dont go over the entire function for the clicked card
@@ -19,7 +26,7 @@ export default class Card{
         const deleteCardButton = this._cardElement.querySelector('.elements__delete');
         clickLike.addEventListener("click", this._likedCard);
         //delete image
-        deleteCardButton.addEventListener('click', this._handleDeleteCard);
+        deleteCardButton.addEventListener('click', this._handleDeleteClick(this.id()));
         //Enlarging image
         this._cardImage.addEventListener('click', () =>{
             this._handleCardClick({ name: this._name, link: this._link })

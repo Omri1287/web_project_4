@@ -17,6 +17,9 @@ I also set up webpack bundling and building in order to bundle JavaScript files 
 * An option to close the popups by clicking anywhere outside the modal itself plus by pressing esc
 * Validating the forms, and restricting the info type inserted in the required fields. 
 * The different classes are divided into files for each of their own.
+* Sow how many likes each image has
+* A "are you sure?" popup for deleting a card 
+* An option of Updating the profile picture
 
 ## Future steps
 * Add different fonts in order to make the web page a more personal touch.
