@@ -1,4 +1,4 @@
-class Api {
+export default class Api {
     constructor({baseUrl, headers}) {
       this._baseUrl = baseUrl;
       this._headers = headers;
@@ -14,10 +14,11 @@ class Api {
     }
     getUserInfo(){
         return fetch(this._baseUrl + '/users/me', {
-            headers: this._headers
+            headers: this._headers,
+            //method: "GET"
             })
             //if you get response send the json, if not send an error status
-            .then((res) => res.ok ? res.jason: Promise.reject('Error!' + res.statusText))
+            .then((res) => res.ok ? res.jason(): Promise.reject('Error!' + res.statusText))
             .catch(err => console.log(err))
     }
     //should do the promise and wait for the get card list and user info results. 
@@ -52,7 +53,19 @@ class Api {
 
     }
     setUserInfo ({name, about}){
+        return fetch(this._baseUrl + '/users/me', {
+            headers: this._headers,
+            method: "PATCH",
+            body: JSON.stringify({
+                name,
+                about
 
+            })
+            
+        })
+            //if you get response send the json, if not send an error status
+            .then((res) => res.ok ? res.jason(): Promise.reject('Error!' + res.statusText))
+            .catch(err => console.log(err))
     }
     setUserAvatar({avatar}){
 

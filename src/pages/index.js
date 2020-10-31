@@ -90,7 +90,7 @@ addFormValidator.enableValidation();
 const imagePopup = new PopupWithImage(imageModal);
 imagePopup.setEventListeners();
 //add form
-const newCardPopup = new PopupWithForm({
+/*const newCardPopup = new PopupWithForm({
   popupSelector:addImageModal,
   popupSubmition: (data) => 
     api.addCard(data)
@@ -101,7 +101,7 @@ const newCardPopup = new PopupWithForm({
         //insert into the images list
         defaultList.addItem(cardElement)
     })
-})
+})*/
 
 //close form 
 /*const closeForm = new PopupWithForm({
@@ -176,7 +176,7 @@ api.getCardList().then(res => {
 })
 
 api.getUserInfo().then(res => {
-  console('profile', res);
+  console.log(res);
   profileInfo.setUserInfo({profileName: res.title, profileDesc: res.desc})
 })
 
