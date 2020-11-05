@@ -76,7 +76,7 @@ addFormValidator.enableValidation();
 
 
 //instance of card
-/*const cardAdded = (data) =>{
+const cardAdded = (data) =>{
 
   
   const cardInstance = new Card({data, handleCardClick: ({name, link}) => {
@@ -84,7 +84,7 @@ addFormValidator.enableValidation();
     const cardElement = cardInstance.createCard();
     //insert into the images list
     defaultList.addItem(cardElement);
-}*/
+}
 
 //popup of image
 const imagePopup = new PopupWithImage(imageModal);
@@ -146,12 +146,13 @@ const api = new Api({
   }
 }); 
 
-api.getCardList().then(res => {
+api.getCardList().then((res)=>{console.log(res)})
+.then(function(res) {
   const defaultList = new Section({
     items: res,
     renderer: (data) => cardAdded(data)},'.elements__list');
+    defaultList.renderItems(); 
   // card list handler renders elements items
-  defaultList.renderItems();
   const newCardPopup = new PopupWithForm({
     popupSelector:addImageModal,
     popupSubmition: (data) => 

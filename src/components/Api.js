@@ -9,7 +9,16 @@ export default class Api {
                 headers: this._headers
                 })
                 //if you get response send the json, if not send an error status
-                .then((res) => res.ok ? res.jason: Promise.reject('Error!' + res.statusText))
+                //.then((res) => res.ok ? res.json: Promise.reject('Error!' + res.statusText))
+                .then(function(res) {
+                    if(res.ok){
+                        console.log(res);
+                        return res.json()
+                    } 
+                    /*else{
+                        Promise.reject('Error!' + res.statusText)
+                    }*/
+                })
                 .catch(err => console.log(err))
     }
     getUserInfo(){
@@ -18,7 +27,7 @@ export default class Api {
             //method: "GET"
             })
             //if you get response send the json, if not send an error status
-            .then((res) => res.ok ? res.jason(): Promise.reject('Error!' + res.statusText))
+            .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
             .catch(err => console.log(err))
     }
     //should do the promise and wait for the get card list and user info results. 
@@ -37,7 +46,7 @@ export default class Api {
                 link
             })
         })
-        .then((res) => res.ok ? res.jason: Promise.reject('Error!' + res.statusText))
+        .then((res) => res.ok ? res.json: Promise.reject('Error!' + res.statusText))
         .catch(err => console.log(err))
     }
     removeCard(cardId){
@@ -46,7 +55,7 @@ export default class Api {
             //i wish to delete data 
             method: "DELETE",
         })
-        .then((res) => res.ok ? res.jason: Promise.reject('Error!' + res.statusText))
+        .then((res) => res.ok ? res.json: Promise.reject('Error!' + res.statusText))
         .catch(err => console.log(err))
     }
     changeCardLikeStatus(cardId, like){
@@ -64,7 +73,7 @@ export default class Api {
             
         })
             //if you get response send the json, if not send an error status
-            .then((res) => res.ok ? res.jason(): Promise.reject('Error!' + res.statusText))
+            .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
             .catch(err => console.log(err))
     }
     setUserAvatar({avatar}){
