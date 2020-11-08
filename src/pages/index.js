@@ -147,7 +147,7 @@ const api = new Api({
 }); 
 
 api.getCardList().then((res)=>{console.log(res)})
-.then(function(res) {
+.then(res => {
   const defaultList = new Section({
     items: res,
     renderer: (data) => cardAdded(data)},'.elements__list');
