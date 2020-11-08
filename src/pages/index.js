@@ -146,18 +146,31 @@ const api = new Api({
   }
 }); 
 
-api.getCardList().then((res)=>{console.log(res)})
+api.getCardList()
 .then(res => {
+  console.log("111",res)
   const defaultList = new Section({
     items: res,
-    renderer: (data) => cardAdded(data)},'.elements__list');
-    defaultList.renderItems(); 
+    renderer: (data) => {
+      const cardInstance = new Card({data, 
+        handleCardClick: ({name, link}) => {
+        imagePopup.open(link, name)}, 
+        handleDeleteClick: (cardId) => {
+          api.removeCard(cardId)
+        }}, '.card-template')
+        const cardElement = cardInstance.createCard();
+        //insert into the images list
+        defaultList.addItem(cardElement)
+      //  return cardAdded(data)
+    }
+  },'.elements__list');
+  defaultList.renderItems(); 
   // card list handler renders elements items
   const newCardPopup = new PopupWithForm({
     popupSelector:addImageModal,
     popupSubmition: (data) => 
       api.addCard(data)
-      .then(res => {
+      .then(data => {
         const cardInstance = new Card({data, 
           handleCardClick: ({name, link}) => {
           imagePopup.open(link, name)}, 
