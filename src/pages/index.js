@@ -77,8 +77,6 @@ addFormValidator.enableValidation();
 
 //instance of card
 const cardAdded = (data) =>{
-
-  
   const cardInstance = new Card({data, handleCardClick: ({name, link}) => {
     imagePopup.open(link, name)}}, '.card-template')
     const cardElement = cardInstance.createCard();
@@ -107,11 +105,7 @@ imagePopup.setEventListeners();
 /*const closeForm = new PopupWithForm({
   popupSelector: document.querySelector('.modal__close-btn')
 });*/
-const profileInfo = new UserInfo(profileName, profileDesc);
 
-const profileForm = new PopupWithForm(
-  {popupSelector: editProfileModal, 
-    popupSubmition: () => profileInfo.setUserInfo(inputName.value, inputDesc.value)})
 
 //card list
 
@@ -121,21 +115,7 @@ const profileForm = new PopupWithForm(
 // card list handler renders elements items
 defaultList.renderItems();*/
 
-//open add image form 
-
-
-
-
-//open edit info form
-editButton.addEventListener('click', () => {
-  const user = profileInfo.getUserInfo();
-  profileName.value = user.title; 
-  profileDesc.value = user.desc; 
-  profileForm.open();
-})
-
-//edit info  handler
-profileForm.setEventListeners();
+const profileInfo = new UserInfo( profileName, profileDesc);
 
 //api instance
 const api = new Api({
@@ -146,52 +126,89 @@ const api = new Api({
   }
 }); 
 
-api.getCardList()
-.then(res => {
-  console.log("111",res)
+//dfine userId and getAppInfo method inside api.js (11.11.20)
+
+api.getAppInfo().then(([userData, cardListData]) => {
   const defaultList = new Section({
-    items: res,
-    renderer: (data) => {
+    items: cardListData,
+    renderer: addingNewCard
+  }, '.elements__list')
+  
+  defaultList.renderItems(); 
+    // card list handler renders elements items
+  const newCardPopup = new PopupWithForm({
+      popupSelector:addImageModal,
+      popupSubmition: (data) => 
+        api.addCard(data)
+        .then(data => {
+          const cardInstance = new Card({data, 
+            handleCardClick: ({name, link}) => {
+            imagePopup.open(link, name)}, 
+            handleDeleteClick: (cardId) => {
+              api.removeCard(cardId)
+            }}, '.card-template')
+            const cardElement = cardInstance.createCard();
+            //insert into the images list
+            defaultList.addItem(cardElement)
+        })
+    })
+    addImageButton.addEventListener("click", () => {
+      newCardPopup.open();
+    });
+    //add image handler
+    newCardPopup.setEventListeners();
+    function addingNewCard(data){
+      console.log(data);
       const cardInstance = new Card({data, 
         handleCardClick: ({name, link}) => {
         imagePopup.open(link, name)}, 
         handleDeleteClick: (cardId) => {
           api.removeCard(cardId)
-        }}, '.card-template')
+        },
+        likeHandler: (cardId) =>{
+          if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart-active')){
+            cardElement.querySelector('.elements__heart').classList.remove('elements__heart-active');
+            api.deleteLike(cardId).then(res => {card.showLikes(res.likes.length)}).catch(err => console.log(err))
+          }else{
+            cardElement.querySelector('.elements__heart').classList.add('elements__heart-active');
+            api.addCard(cardId).then(res => {card.showLikes(res.likes.length)}).catch(err => console.log(err))
+          }
+        }
+      },
+        userData._id,'.card-template')
         const cardElement = cardInstance.createCard();
         //insert into the images list
         defaultList.addItem(cardElement)
       //  return cardAdded(data)
     }
-  },'.elements__list');
-  defaultList.renderItems(); 
-  // card list handler renders elements items
-  const newCardPopup = new PopupWithForm({
-    popupSelector:addImageModal,
-    popupSubmition: (data) => 
-      api.addCard(data)
-      .then(data => {
-        const cardInstance = new Card({data, 
-          handleCardClick: ({name, link}) => {
-          imagePopup.open(link, name)}, 
-          handleDeleteClick: (cardId) => {
-            api.removeCard(cardId)
-          }}, '.card-template')
-          const cardElement = cardInstance.createCard();
-          //insert into the images list
-          defaultList.addItem(cardElement)
-      })
-  })
-  addImageButton.addEventListener("click", () => {
-    newCardPopup.open();
-  });
-  //add image handler
-  newCardPopup.setEventListeners();
-})
+
+  const profileForm = new PopupWithForm(
+    {popupSelector: editProfileModal, 
+      popupSubmition: () => profileInfo.setUserInfo(inputName.value, inputDesc.value)})
+      //open edit info form
+    editButton.addEventListener('click', () => {
+      const user = profileInfo.getUserInfo();
+      profileName.value = user.title; 
+      profileDesc.value = user.desc; 
+      profileForm.open();
+    })
+
+    //edit info  handler
+    profileForm.setEventListeners();
+  
+}).catch(err => console.log(err));
+
+/*api.getCardList()
+.then(res => {
+  const defaultList = new Section({
+    items: res,
+    renderer: (data) => {*/
+
+  //},'.elements__list');
 
 api.getUserInfo().then(res => {
-  console.log(res);
-  profileInfo.setUserInfo({profileName: res.title, profileDesc: res.desc})
+
+  profileInfo.setUserInfo( res.name, res.about)
 })
 
 export { profileName, profileDesc, imageModal, enlargedImage }

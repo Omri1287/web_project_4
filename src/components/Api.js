@@ -23,7 +23,6 @@ export default class Api {
                 //.then((res) => res.ok ? res.json: Promise.reject('Error!' + res.statusText))
                 .then(function(res) {
                     if(res.ok){
-                        console.log(res);
                         return res.json()
                     } 
                     else{
@@ -43,9 +42,10 @@ export default class Api {
     }
     //should do the promise and wait for the get card list and user info results. 
     //then render all of them together, not step by step
-    getAppInfo(){
-
-    }
+    getAppInfo() {
+        return Promise.all([this.getUserInfo(), this.getCardList()])
+      }
+    
     addCard({name, link}){
         return fetch(this._baseUrl + '/cards', {
             headers: this._headers,
@@ -57,7 +57,7 @@ export default class Api {
                 link
             })
         })
-        .then((res) => res.ok ? res.json: Promise.reject('Error!' + res.statusText))
+        .then((res) => res.ok ? res.json() : Promise.reject('Error!' + res.statusText))
         .catch(err => console.log(err))
     }
     removeCard(cardId){
@@ -66,11 +66,28 @@ export default class Api {
             //i wish to delete data 
             method: "DELETE",
         })
-        .then((res) => res.ok ? res.json: Promise.reject('Error!' + res.statusText))
+        .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
         .catch(err => console.log(err))
     }
-    changeCardLikeStatus(cardId, like){
+    //changeCardLikeStatus(cardId, like){}
+    addLike(cardId){
+        return fetch(this._baseUrl + '/cards/likes' + cardId, {
+            headers: this._headers,
+            //i wish to delete data 
+            method: "PUT",
+        })
+        .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
+        .catch(err => console.log(err))
 
+    }
+    deleteLike(cardId){
+        return fetch(this._baseUrl + '/cards/likes' + cardId, {
+            headers: this._headers,
+            //i wish to delete data 
+            method: "DELETE",
+        })
+        .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
+        .catch(err => console.log(err))
     }
     setUserInfo ({name, about}){
         return fetch(this._baseUrl + '/users/me', {
