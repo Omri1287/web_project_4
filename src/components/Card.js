@@ -9,7 +9,7 @@ export default class Card{
         this._userId = userId;
         this._likes = data.likes;
         this._likeHandler = likeHandler;
-        this._id = data.id;
+        this._id = data._id;
         this._handleDeleteClick = handleDeleteClick;
     }
 
@@ -46,14 +46,17 @@ export default class Card{
         const deleteCardButton = this._cardElement.querySelector('.elements__delete');
         //clickLike.addEventListener("click", this._likedCardRenderer);
         //delete image
-        deleteCardButton.addEventListener('click', this._handleDeleteClick(this.id()));
+        deleteCardButton.addEventListener('click', () => {
+            this._handleDeleteClick(this.id())
+        });
         //Enlarging image
         this._cardImage.addEventListener('click', () =>{
             this._handleCardClick({ name: this._name, link: this._link })
         });
         this._cardElement.querySelector(".elements__heart").addEventListener("click", (evt) => {
             evt.target.classList.toggle("elements__heart_active");
-            this._likeHandler(this._id);
+            const id = this.id()
+            this._likeHandler(id);
           })
     }
     createCard() {
@@ -65,6 +68,7 @@ export default class Card{
         this._cardImage.style.backgroundImage = `url(${this._link})`;
         this._likedCardRenderer();
         this._addEventListeners();
+        this.showLikes(this._likes.length);
         return this._cardElement;
     }
 }

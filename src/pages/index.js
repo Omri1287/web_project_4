@@ -157,21 +157,33 @@ api.getAppInfo().then(([userData, cardListData]) => {
     });
     //add image handler
     newCardPopup.setEventListeners();
+
     function addingNewCard(data){
       console.log(data);
-      const cardInstance = new Card({data, 
+      const cardInstance = new Card({
+        data, 
         handleCardClick: ({name, link}) => {
-        imagePopup.open(link, name)}, 
+          console.log(data);
+          imagePopup.open(link, name);
+        }, 
         handleDeleteClick: (cardId) => {
           api.removeCard(cardId)
         },
         likeHandler: (cardId) =>{
+          console.log(cardId);
           if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart-active')){
             cardElement.querySelector('.elements__heart').classList.remove('elements__heart-active');
-            api.deleteLike(cardId).then(res => {card.showLikes(res.likes.length)}).catch(err => console.log(err))
+            api.deleteLike(cardId).then((res) => {
+              console.log('res:', res);
+              cardInstance.showLikes(res.likes.length)}).catch(err => console.log(err))
           }else{
             cardElement.querySelector('.elements__heart').classList.add('elements__heart-active');
-            api.addCard(cardId).then(res => {card.showLikes(res.likes.length)}).catch(err => console.log(err))
+            api.addLike(cardId).then((res) => {
+              console.log('cardId:', cardId);
+              console.log('cardInstance:', cardInstance);
+              console.log('res:', res);
+              cardInstance.showLikes(res.likes.length)
+            }).catch(err => console.log(err))
           }
         }
       },
