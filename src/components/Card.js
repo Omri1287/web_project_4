@@ -17,10 +17,13 @@ export default class Card{
         return this._id;
     }
 
-    _handleDeleteCard (e){
-        e.target.closest('.elements__item').remove();
+    _cardDeleter (e){
+        //e.target.closest('.elements__item').remove();
         //once clicked "delete" dont go over the entire function for the clicked card
+        this._cardElement.remove();
+        this._cardElement = null;
         e.stopPropagation();
+
     }
     _likedCardRenderer (e){
         if (this._likes.some((like) => like._id === this._userId)) {
@@ -43,15 +46,18 @@ export default class Card{
     }
     _addEventListeners(){
         //const clickLike = this._cardElement.querySelector('.elements__heart');
-        const deleteCardButton = this._cardElement.querySelector('.elements__delete');
+        //const deleteCardButton = this._cardElement.querySelector('.elements__delete');
         //clickLike.addEventListener("click", this._likedCardRenderer);
         //delete image
-        deleteCardButton.addEventListener('click', () => {
-            this._handleDeleteClick(this.id())
-        });
+        /*deleteCardButton.addEventListener('click', (e) => {
+            this._cardDeleter(e)
+        });*/
+        this._cardElement.querySelector('.elements__delete').addEventListener("click", () => this._handleDeleteClick(this.id()));
+
         //Enlarging image
-        this._cardImage.addEventListener('click', () =>{
-            this._handleCardClick({ name: this._name, link: this._link })
+        this._cardImage.addEventListener('click', (e) =>{
+            if(e.target === this._cardImage){
+            this._handleCardClick({ name: this._name, link: this._link })}
         });
         this._cardElement.querySelector(".elements__heart").addEventListener("click", (evt) => {
             evt.target.classList.toggle("elements__heart_active");

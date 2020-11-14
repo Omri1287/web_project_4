@@ -37,7 +37,9 @@ const addImageModal = document.querySelector('.modal_type_add-image');
 //enlarged image 
 const imageModal = document.querySelector('.modal_type_image'); 
 const enlargedImage =  imageModal.querySelector('.modal__large-image');
-//imageModalEnlarge.src = this._data.link;
+
+//delete card
+const deleteCard = document.querySelector(".modal_type_delete");
 
 //list of originl images
 const list = document.querySelector('.elements__list');
@@ -115,6 +117,12 @@ imagePopup.setEventListeners();
 // card list handler renders elements items
 defaultList.renderItems();*/
 
+//delete a card popup
+const deleteCardPopup = new PopupWithForm({
+  popupSelector: deleteCard
+});
+deleteCardPopup.setEventListeners();
+
 const profileInfo = new UserInfo( profileName, profileDesc);
 
 //api instance
@@ -163,13 +171,24 @@ api.getAppInfo().then(([userData, cardListData]) => {
         handleCardClick: ({name, link}) => {
         imagePopup.open(link, name)}, 
         handleDeleteClick: (cardId) => {
-          api.removeCard(cardId)
+          deleteCardPopup.open(cardId);
+          //handle click on submit button
+          deleteCardPopup.deleteSubmitHandler(() => {
+            //remove the card
+            api.removeCard(cardId)
+              .then(() => {
+                cardInstance._cardDeleter();
+                deleteCardPopup.close();
+              })
+              .catch(err => console.log(err));
+          });
+          //api.removeCard(cardId)
         },
         likeHandler: (cardId) =>{
           if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart-active')){
             cardElement.querySelector('.elements__heart').classList.remove('elements__heart-active');
             api.deleteLike(cardId).then(res => {
-              //console.log(cardInstance);
+              console.log(cardInstance);
               console.log(res);
               cardInstance.showLikes(res.likes.length)}).catch(err => console.log(err))
           }else{
@@ -208,6 +227,7 @@ api.getAppInfo().then(([userData, cardListData]) => {
     renderer: (data) => {*/
 
   //},'.elements__list');
+
 
 api.getUserInfo().then(res => {
 

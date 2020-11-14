@@ -26,4 +26,7 @@ export default class PopupWithForm extends Popup {
           })
           super.setEventListeners();               
     }
+    deleteSubmitHandler(event) {
+        this._popupSubmition = event;
+      }
 }

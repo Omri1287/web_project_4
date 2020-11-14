@@ -23,7 +23,8 @@ export default class Api {
                 //.then((res) => res.ok ? res.json: Promise.reject('Error!' + res.statusText))
                 .then(function(res) {
                     if(res.ok){
-                        return res.json()
+
+                        return res.json().then(data => { return data })
                     } 
                     else{
                         Promise.reject('Error!' + res.statusText)
@@ -71,17 +72,30 @@ export default class Api {
     }
     //changeCardLikeStatus(cardId, like){}
     addLike(cardId){
-        return fetch(this._baseUrl + '/cards/likes' + cardId, {
+        return fetch(this._baseUrl + '/cards/likes/' + cardId, {
             headers: this._headers,
             //i wish to delete data 
             method: "PUT",
         })
-        .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
-        .catch(err => console.log(err))
+        .then((res) =>{
+            if(res.ok){
+                res.json().then(data => {return data})
+            } else {
+                Promise.reject('Error!' + res.statusText)
+            }
+        })
+        /*.then((res) => {if(res.ok) {
+            console.log(res);
+            res.json();
+        }else{
+        Promise.reject('Error!' + res.statusText)}})*/
+        .catch(err => {
+            console.log(err)
+        })
 
     }
     deleteLike(cardId){
-        return fetch(this._baseUrl + '/cards/likes' + cardId, {
+        return fetch(this._baseUrl + '/cards/likes/' + cardId, {
             headers: this._headers,
             //i wish to delete data 
             method: "DELETE",
