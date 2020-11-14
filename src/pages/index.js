@@ -119,9 +119,9 @@ const profileInfo = new UserInfo( profileName, profileDesc);
 
 //api instance
 const api = new Api({
-  baseUrl: "https://around.nomoreparties.co/v1/group-5",
+  baseUrl: "https://around.nomoreparties.co/v1/group-6",
   headers: {
-    authorization: "8e18e1ba-d6e7-4a4b-a525-0db2d13feedb",
+    authorization: "2fafb99f-e5be-44a5-8ca2-7baac5014f21",
     "Content-Type": "application/json"
   }
 }); 
@@ -157,33 +157,24 @@ api.getAppInfo().then(([userData, cardListData]) => {
     });
     //add image handler
     newCardPopup.setEventListeners();
-
     function addingNewCard(data){
-      console.log(data);
-      const cardInstance = new Card({
-        data, 
+      //console.log(data);
+      const cardInstance = new Card({data, 
         handleCardClick: ({name, link}) => {
-          console.log(data);
-          imagePopup.open(link, name);
-        }, 
+        imagePopup.open(link, name)}, 
         handleDeleteClick: (cardId) => {
           api.removeCard(cardId)
         },
         likeHandler: (cardId) =>{
-          console.log(cardId);
           if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart-active')){
             cardElement.querySelector('.elements__heart').classList.remove('elements__heart-active');
-            api.deleteLike(cardId).then((res) => {
-              console.log('res:', res);
+            api.deleteLike(cardId).then(res => {
+              //console.log(cardInstance);
+              console.log(res);
               cardInstance.showLikes(res.likes.length)}).catch(err => console.log(err))
           }else{
             cardElement.querySelector('.elements__heart').classList.add('elements__heart-active');
-            api.addLike(cardId).then((res) => {
-              console.log('cardId:', cardId);
-              console.log('cardInstance:', cardInstance);
-              console.log('res:', res);
-              cardInstance.showLikes(res.likes.length)
-            }).catch(err => console.log(err))
+            api.addLike(cardId).then(res => {cardInstance.showLikes(res.likes.length)}).catch(err => console.log(err))
           }
         }
       },
@@ -224,3 +215,5 @@ api.getUserInfo().then(res => {
 })
 
 export { profileName, profileDesc, imageModal, enlargedImage }
+
+this.showLikes(this._likes.length);
