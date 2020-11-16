@@ -30,6 +30,14 @@ const inputDesc = document.querySelector('.modal__input_desc');
 const profileName = document.querySelector('.profile__text_name'); 
 const profileDesc = document.querySelector('.profile__text_desc'); 
 
+//edit avatar modal
+const editAvatarModal = document.querySelector('.modal_type_edit-avatar');
+const saveAvatar = document.querySelector('.modal__save');
+const avatarEditBtn = document.querySelector('.profile__photo_edit');
+const avatarImage = document.querySelector('.profile__photo');
+const avatarFormInput = document.querySelector('.modal__input_avatar-URL')
+
+
 //add image 
 const addImageButton = document.querySelector('.profile__add-button');
 const addImageModal = document.querySelector('.modal_type_add-image');
@@ -230,8 +238,38 @@ api.getAppInfo().then(([userData, cardListData]) => {
 
     //edit info  handler
     profileForm.setEventListeners();
+
+    //return user avatar
+    avatarImage.src = userData.avatar;
   
 }).catch(err => console.log(err));
+
+// edit profile avatar
+const editAvatar = new PopupWithForm(
+  {popupSelector: editAvatarModal,
+  popupSubmition: (data) => {
+    saveAvatar.textContent = "Saving...";
+    api.setUserAvatar({
+      avatar: data.link
+    })
+    avatarEditBtn.addEventListener('click', () => {
+      avatarFormInput.value = avatarImage.src;
+      editAvatar.open();
+    })
+      .then(() => {
+        saveAvatar.textContent = "Save";
+        avatarImage.src = data.link;
+        editAvatar.close();
+        editAvatar.setEventListeners()
+      })
+      .catch(err => console.log(err));
+  }
+});
+// event listeners to open avatar changing modal
+/*avatarEditBtn.addEventListener('click', () => {
+  avatarFormInput.value = avatarImage.src;
+  editAvatar.open();
+}); */
 
 /*api.getCardList()
 .then(res => {

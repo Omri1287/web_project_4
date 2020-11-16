@@ -120,8 +120,28 @@ export default class Api {
             .catch(err => console.log(err))
     }
     setUserAvatar({avatar}){
-
+        return fetch(this._baseUrl + '/users/me/avatar', {
+            headers: this._headers,
+            method: "PATCH",
+            body: JSON.stringify({
+              avatar
+            })
+          })
+          .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
+          .catch(err => console.log(err))
     }
+    setUserInfos({name, about}) {
+        return fetch(this._baseUrl + '/users/me', {
+          headers: this._headers,
+          method: "PATCH",
+          body: JSON.stringify({
+            name,
+            about
+          })
+        })
+        .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
+        .catch(err => console.log(err))
+      }
   
     // other methods for working with the API
   }
