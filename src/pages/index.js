@@ -177,23 +177,36 @@ api.getAppInfo().then(([userData, cardListData]) => {
             //remove the card
             api.removeCard(cardId)
               .then(() => {
-                cardInstance._cardDeleter();
+                cardInstance._cardDeleter(cardId);
                 deleteCardPopup.close();
               })
-              .catch(err => console.log(err));
+              .catch(err => console.log('sss' ,err));
           });
           //api.removeCard(cardId)
         },
         likeHandler: (cardId) =>{
-          if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart-active')){
-            cardElement.querySelector('.elements__heart').classList.remove('elements__heart-active');
+          console.log(cardInstance);
+
+          if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart_active')){
+            console.log(cardInstance);
+
+            cardElement.querySelector('.elements__heart').classList.remove('elements__heart_active');
             api.deleteLike(cardId).then(res => {
               console.log(cardInstance);
               console.log(res);
-              cardInstance.showLikes(res.likes.length)}).catch(err => console.log(err))
+              cardInstance.showLikes(res.likes.length)
+              cardInstance._likes = res.likes;
+            }).catch(err => console.log(err))
           }else{
-            cardElement.querySelector('.elements__heart').classList.add('elements__heart-active');
-            api.addLike(cardId).then(res => {cardInstance.showLikes(res.likes.length)}).catch(err => console.log(err))
+            console.log(cardInstance);
+            cardInstance._cardElement.classList.toggle("elements__heart_active");
+
+            cardElement.querySelector('.elements__heart').classList.add('elements__heart_active');
+            api.addLike(cardId).then(res => {
+              console.log(res);
+              cardInstance.showLikes(res.likes.length)
+              cardInstance._likes = res.likes;
+            }).catch(err => console.log(err))
           }
         }
       },
@@ -236,4 +249,4 @@ api.getUserInfo().then(res => {
 
 export { profileName, profileDesc, imageModal, enlargedImage }
 
-this.showLikes(this._likes.length);
+//this.showLikes(this._likes.length);

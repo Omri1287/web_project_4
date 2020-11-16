@@ -5,10 +5,11 @@ export default class PopupWithForm extends Popup {
         super(popupSelector);
         this._popupSubmition = popupSubmition;
         this._formElement = this._popupSelector.querySelector(".modal__form");
+        this.cbFunction = null;
     }
     _getInputValues(){
-        console.log(this._inputValues);
-        console.log(this._inputList);
+        // console.log(this._inputValues);
+        // console.log(this._inputList);
             //collects data from all the input fields.
         //this._inputList = this._formElement.querySelectorAll(".modal__input");
         this._inputList = Array.from(this._formElement.querySelectorAll(".modal__input"))
@@ -21,12 +22,17 @@ export default class PopupWithForm extends Popup {
         //close the form popup
         this._formElement.addEventListener("submit", (e) => {
             e.preventDefault();
-            this._popupSubmition(this._getInputValues());
+            if(e.target.id === 'deleteCard'){
+                this.cbFunction();
+                this.cbFunction = null;
+            } else {
+                this._popupSubmition(this._getInputValues());
+            }
             this.close();
           })
           super.setEventListeners();               
     }
-    deleteSubmitHandler(event) {
-        this._popupSubmition = event;
-      }
+    deleteSubmitHandler(cbFunction) {
+            this.cbFunction = cbFunction;
+       }
 }

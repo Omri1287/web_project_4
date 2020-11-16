@@ -62,13 +62,13 @@ export default class Api {
         .catch(err => console.log(err))
     }
     removeCard(cardId){
-        return fetch(this._baseUrl + '/cards' + cardId, {
+        return fetch(this._baseUrl + '/cards/' + cardId, {
             headers: this._headers,
             //i wish to delete data 
             method: "DELETE",
         })
         .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
-        .catch(err => console.log(err))
+        .catch(err => {throw new Error(err)});
     }
     //changeCardLikeStatus(cardId, like){}
     addLike(cardId){
@@ -79,7 +79,8 @@ export default class Api {
         })
         .then((res) =>{
             if(res.ok){
-                res.json().then(data => {return data})
+                 return res.json()
+                //.then(data => {return data})
             } else {
                 Promise.reject('Error!' + res.statusText)
             }

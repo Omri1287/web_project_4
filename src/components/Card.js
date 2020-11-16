@@ -17,15 +17,17 @@ export default class Card{
         return this._id;
     }
 
-    _cardDeleter (e){
+    _cardDeleter (cardId){
+        const cardElement = document.getElementById(cardId);
+        if(cardElement){
+            cardElement.parentNode.removeChild(cardElement);
+        }
         //e.target.closest('.elements__item').remove();
         //once clicked "delete" dont go over the entire function for the clicked card
-        this._cardElement.remove();
+        // this._cardElement.remove();
         this._cardElement = null;
-        e.stopPropagation();
-
     }
-    _likedCardRenderer (e){
+    _likedCardRenderer (){
         if (this._likes.some((like) => like._id === this._userId)) {
             this._cardElement.querySelector(".elements__heart").classList.add("elements__heart_active");
           }
@@ -52,7 +54,8 @@ export default class Card{
         /*deleteCardButton.addEventListener('click', (e) => {
             this._cardDeleter(e)
         });*/
-        this._cardElement.querySelector('.elements__delete').addEventListener("click", () => this._handleDeleteClick(this.id()));
+        this._cardElement.querySelector('.elements__delete').addEventListener("click", () => {
+            this._handleDeleteClick(this.id())},{once : true});
 
         //Enlarging image
         this._cardImage.addEventListener('click', (e) =>{
@@ -60,9 +63,9 @@ export default class Card{
             this._handleCardClick({ name: this._name, link: this._link })}
         });
         this._cardElement.querySelector(".elements__heart").addEventListener("click", (evt) => {
-            evt.target.classList.toggle("elements__heart_active");
-            const id = this.id()
-            this._likeHandler(id);
+            //evt.target.classList.toggle("elements__heart_active");
+            //const id = this.id()
+            this._likeHandler(this._id);
           })
     }
     createCard() {
@@ -75,6 +78,7 @@ export default class Card{
         this._likedCardRenderer();
         this._addEventListeners();
         this.showLikes(this._likes.length);
+        this._cardElement.id = this._id; 
         return this._cardElement;
     }
 }
