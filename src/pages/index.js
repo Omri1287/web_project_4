@@ -90,33 +90,6 @@ const cardAdded = (data) =>{
 //popup of image
 const imagePopup = new PopupWithImage(imageModal);
 imagePopup.setEventListeners();
-//add form
-/*const newCardPopup = new PopupWithForm({
-  popupSelector:addImageModal,
-  popupSubmition: (data) => 
-    api.addCard(data)
-    .then(res => {
-      const cardInstance = new Card({data, handleCardClick: ({name, link}) => {
-        imagePopup.open(link, name)}}, '.card-template')
-        const cardElement = cardInstance.createCard();
-        //insert into the images list
-        defaultList.addItem(cardElement)
-    })
-})*/
-
-//close form 
-/*const closeForm = new PopupWithForm({
-  popupSelector: document.querySelector('.modal__close-btn')
-});*/
-
-
-//card list
-
-/*const defaultList = new Section({
-  items: initialCards,
-  renderer: (data) => cardAdded(data)},'.elements__list');
-// card list handler renders elements items
-defaultList.renderItems();*/
 
 //delete a card popup
 const deleteCardPopup = new PopupWithForm({
@@ -264,10 +237,6 @@ const editAvatar = new PopupWithForm({
   popupSelector: editAvatarModal,
   popupSubmition: (data) => {
     handleAvatarEdit(data)
-    // api.setUserAvatar({ avatar: data.avatarURL })
-    // .then(res => {
-    //   profileAvatar.src = res.avatar
-    // });
     }
 });
    
@@ -276,51 +245,13 @@ avatarEditBtn.addEventListener("click", () => {
 });
 
 editAvatar.setEventListeners();
-/*const editAvatar = new PopupWithForm(
-  {popupSelector: editAvatarModal,
-  popupSubmition: (data) => {
-    saveAvatar.textContent = "Saving...";
-    api.setUserAvatar({
-      avatar: data.link,
-    })
-    avatarEditBtn.addEventListener('click', () => {
-      avatarFormInput.value = avatarImage.src;
-      editAvatar.open();
-    })
-      .then(() => {
-        saveAvatar.textContent = "Save";
-        avatarImage.src = data.link;
-        editAvatar.close();
-        editAvatar.setEventListeners()
-      })
-      .catch(err => console.log(err));
-  }
-});*/
-// event listeners to open avatar changing modal
-/*avatarEditBtn.addEventListener('click', () => {
-  avatarFormInput.value = avatarImage.src;
-  editAvatar.open();
-}); */
-
-/*api.getCardList()
-.then(res => {
-  const defaultList = new Section({
-    items: res,
-    renderer: (data) => {*/
-
-  //},'.elements__list');
-
 
 api.getUserInfo().then(res => {
 
   profileInfo.setUserInfo( res.name, res.about)
 })
-/*profileInfo.setUserInfo({userName: userData.name, userOccupation: userData.about});
-avatarImage.src = userData.avatar;*/
 
 export { profileName, profileDesc, imageModal, enlargedImage }
-
-//this.showLikes(this._likes.length);
 
 //validations
 

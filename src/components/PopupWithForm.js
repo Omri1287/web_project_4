@@ -8,10 +8,7 @@ export default class PopupWithForm extends Popup {
         this.cbFunction = null;
     }
     _getInputValues(){
-        // console.log(this._inputValues);
-        // console.log(this._inputList);
-            //collects data from all the input fields.
-        //this._inputList = this._formElement.querySelectorAll(".modal__input");
+
         this._inputList = Array.from(this._formElement.querySelectorAll(".modal__input"))
         this._inputValues = {};
         this._inputList.forEach(input => this._inputValues[input.name] = input.value);

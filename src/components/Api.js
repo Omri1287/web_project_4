@@ -5,17 +5,6 @@ export default class Api {
     }
   
     getCardList() {
-        /*try {
-            const response = await fetch(this._baseUrl + '/cards', {headers: this._headers});
-            if(response.ok){
-               const data = await response.json();
-               return data;
-            }
-            
-        } catch (error) {
-            throw new Error(error);
-        }*/
-
         return fetch(this._baseUrl + '/cards', {
                 headers: this._headers
                 })
@@ -85,11 +74,7 @@ export default class Api {
                 Promise.reject('Error!' + res.statusText)
             }
         })
-        /*.then((res) => {if(res.ok) {
-            console.log(res);
-            res.json();
-        }else{
-        Promise.reject('Error!' + res.statusText)}})*/
+
         .catch(err => {
             console.log(err)
         })
