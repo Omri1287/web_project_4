@@ -17,13 +17,10 @@ const defaultConfig = {
   errorClass: "modal__error_visible"
 }
 const addCardForm = document.querySelector('.modal__form_type_add-image');
-const addFormValidator = new FormValidator(defaultConfig, addCardForm);
-
 
 //edit profile
 const editProfileModal = document.querySelector('.modal_type_edit-profile')
 const editProfileForm = editProfileModal.querySelector('.modal__form')
-const editFormValidator = new FormValidator(defaultConfig, editProfileForm);
 const editButton = document.querySelector('.profile__edit-button'); 
 const inputName = document.querySelector('.modal__input_name'); 
 const inputDesc = document.querySelector('.modal__input_desc'); 
@@ -36,6 +33,7 @@ const saveAvatar = document.querySelector('.modal__save');
 const avatarEditBtn = document.querySelector('.profile__photo_edit');
 const avatarImage = document.querySelector('.profile__photo');
 const avatarFormInput = document.querySelector('.modal__input_avatar-URL')
+const editAvatarForm = document.querySelector('.modal__form_type_edit-avatar')
 
 
 //add image 
@@ -79,11 +77,6 @@ const initialCards = [
     link: "https://code.s3.yandex.net/web-code/yosemite.jpg",
 }
 ];
-//validation
-
-editFormValidator.enableValidation();
-addFormValidator.enableValidation();
-
 
 //instance of card
 const cardAdded = (data) =>{
@@ -244,13 +237,51 @@ api.getAppInfo().then(([userData, cardListData]) => {
   
 }).catch(err => console.log(err));
 
+//avatar handler
+function handleAvatarEdit(data) {
+  loadingAvatar(true, editAvatarModal);
+  api.setUserAvatar({
+    avatar: data.avatarURL
+  })
+  .then(res => {
+    avatarImage.src = res.avatar;
+    loadingAvatar(false, editAvatarModal);
+    editAvatar.close();
+  })
+  .catch(err => console.log(err));
+}
+
+function loadingAvatar(isLoading, popup) {
+  if (isLoading) {
+    popup.querySelector(".modal__save").textContent = "Saving...";
+  } else {
+    popup.querySelector(".modal__save").textContent = "Save";
+  }
+}
+
 // edit profile avatar
-const editAvatar = new PopupWithForm(
+const editAvatar = new PopupWithForm({
+  popupSelector: editAvatarModal,
+  popupSubmition: (data) => {
+    handleAvatarEdit(data)
+    // api.setUserAvatar({ avatar: data.avatarURL })
+    // .then(res => {
+    //   profileAvatar.src = res.avatar
+    // });
+    }
+});
+   
+avatarEditBtn.addEventListener("click", () => {
+  editAvatar.open();
+});
+
+editAvatar.setEventListeners();
+/*const editAvatar = new PopupWithForm(
   {popupSelector: editAvatarModal,
   popupSubmition: (data) => {
     saveAvatar.textContent = "Saving...";
     api.setUserAvatar({
-      avatar: data.link
+      avatar: data.link,
     })
     avatarEditBtn.addEventListener('click', () => {
       avatarFormInput.value = avatarImage.src;
@@ -264,7 +295,7 @@ const editAvatar = new PopupWithForm(
       })
       .catch(err => console.log(err));
   }
-});
+});*/
 // event listeners to open avatar changing modal
 /*avatarEditBtn.addEventListener('click', () => {
   avatarFormInput.value = avatarImage.src;
@@ -288,3 +319,12 @@ api.getUserInfo().then(res => {
 export { profileName, profileDesc, imageModal, enlargedImage }
 
 //this.showLikes(this._likes.length);
+
+//validations
+
+const addFormValidator = new FormValidator(defaultConfig, addCardForm);
+const editFormValidator = new FormValidator(defaultConfig, editProfileForm);
+const editAvatarValidator = new FormValidator(defaultConfig, editAvatarForm);
+editFormValidator.enableValidation();
+addFormValidator.enableValidation();
+editAvatarValidator.enableValidation();
