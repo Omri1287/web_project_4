@@ -9,6 +9,8 @@
 @import url(./__error/modal__error.css);
 @import url(./__save/_disabled/modal__save_disabled.css);
 @import url(./__save/modal__save.css);
+@import url(./modal_large_size.css);
+
 
 
 

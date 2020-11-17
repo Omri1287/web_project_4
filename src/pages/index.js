@@ -315,6 +315,8 @@ api.getUserInfo().then(res => {
 
   profileInfo.setUserInfo( res.name, res.about)
 })
+/*profileInfo.setUserInfo({userName: userData.name, userOccupation: userData.about});
+avatarImage.src = userData.avatar;*/
 
 export { profileName, profileDesc, imageModal, enlargedImage }
 
