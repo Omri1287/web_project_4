@@ -79,13 +79,13 @@ const initialCards = [
 ];
 
 //instance of card
-const cardAdded = (data) =>{
+/*const cardAdded = (data) =>{
   const cardInstance = new Card({data, handleCardClick: ({name, link}) => {
     imagePopup.open(link, name)}}, '.card-template')
     const cardElement = cardInstance.createCard();
     //insert into the images list
     defaultList.addItem(cardElement);
-}
+}*/
 
 //popup of image
 const imagePopup = new PopupWithImage(imageModal);
@@ -193,7 +193,13 @@ api.getAppInfo().then(([userData, cardListData]) => {
 
   const profileForm = new PopupWithForm(
     {popupSelector: editProfileModal, 
-      popupSubmition: () => profileInfo.setUserInfo(inputName.value, inputDesc.value)})
+      popupSubmition: (data) => {
+        api.setUserInfo({name: data.title, about:data.desc})
+        .then(res => {
+          profileInfo.setUserInfo(inputName.value, inputDesc.value)})
+          .catch(err => console.log(err))
+        }
+    })
       //open edit info form
     editButton.addEventListener('click', () => {
       const user = profileInfo.getUserInfo();

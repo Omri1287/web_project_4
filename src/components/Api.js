@@ -47,7 +47,11 @@ export default class Api {
                 link
             })
         })
-        .then((res) => res.ok ? res.json() : Promise.reject('Error!' + res.statusText))
+        .then((res) => {
+            if(res.ok){
+                return {name, link}
+            } else{
+                Promise.reject('Error!' + res.statusText)}})
         .catch(err => console.log(err))
     }
     removeCard(cardId){
@@ -101,7 +105,8 @@ export default class Api {
             
         })
             //if you get response send the json, if not send an error status
-            .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
+            .then((res) => {
+                return(res.ok ? res.json() : Promise.reject("Error!" + res.statusText + res.status))})
             .catch(err => console.log(err))
     }
     setUserAvatar({avatar}){
@@ -124,7 +129,12 @@ export default class Api {
             about
           })
         })
-        .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
+        .then((res) => {
+            if(res.ok){
+                return res.json()
+            }else{
+                Promise.reject('Error!' + res.statusText)
+            }})
         .catch(err => console.log(err))
       }
   
