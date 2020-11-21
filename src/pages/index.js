@@ -120,22 +120,20 @@ api.getAppInfo().then(([userData, cardListData]) => {
     // card list handler renders elements items
   const newCardPopup = new PopupWithForm({
       popupSelector:addImageModal,
-      popupSubmition: (data) => 
-        api.addCard(data)
-        .then(data => {
-          const cardInstance = new Card({data, 
-            handleCardClick: ({name, link}) => {
-            imagePopup.open(link, name)}, 
-            handleDeleteClick: (cardId) => {
-              api.removeCard(cardId)
-            }}, '.card-template')
-            const cardElement = cardInstance.createCard();
-            //insert into the images list
-            defaultList.addItem(cardElement)
-        })
+      popupSubmition: (data) => {
+      loadingPopup(true, addImageModal);
+      api.addCard(data)
+      .then(data => {
+        //instance of card
+        addingNewCard(data);
+        newCardPopup.close();
+      })
+      .catch(err => console.log(err))
+      }
     })
     addImageButton.addEventListener("click", () => {
       newCardPopup.open();
+      document.querySelector(".modal__save").textContent = "Create";
     });
     //add image handler
     newCardPopup.setEventListeners();
@@ -190,7 +188,7 @@ api.getAppInfo().then(([userData, cardListData]) => {
         defaultList.addItem(cardElement)
       //  return cardAdded(data)
     }
-
+  
   const profileForm = new PopupWithForm(
     {popupSelector: editProfileModal, 
       popupSubmition: (data) => {
@@ -218,19 +216,19 @@ api.getAppInfo().then(([userData, cardListData]) => {
 
 //avatar handler
 function handleAvatarEdit(data) {
-  loadingAvatar(true, editAvatarModal);
+  loadingPopup(true, editAvatarModal);
   api.setUserAvatar({
     avatar: data.avatarURL
   })
   .then(res => {
     avatarImage.src = res.avatar;
-    loadingAvatar(false, editAvatarModal);
+    loadingPopup(false, editAvatarModal);
     editAvatar.close();
   })
   .catch(err => console.log(err));
 }
 
-function loadingAvatar(isLoading, popup) {
+function loadingPopup(isLoading, popup) {
   if (isLoading) {
     popup.querySelector(".modal__save").textContent = "Saving...";
   } else {
