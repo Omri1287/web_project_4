@@ -118,7 +118,7 @@ api.getAppInfo().then(([userData, cardListData]) => {
   
   defaultList.renderItems(); 
     // card list handler renders elements items
-  const newCardPopup = new PopupWithForm({
+    const newCardPopup = new PopupWithForm({
       popupSelector:addImageModal,
       popupSubmition: (data) => {
       loadingPopup(true, addImageModal);
@@ -156,38 +156,39 @@ api.getAppInfo().then(([userData, cardListData]) => {
           });
           //api.removeCard(cardId)
         },
-        likeHandler: (cardId) =>{
-          console.log(cardInstance);
-
-          if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart_active')){
-            console.log(cardInstance);
-
-            cardElement.querySelector('.elements__heart').classList.remove('elements__heart_active');
-            api.deleteLike(cardId).then(res => {
-              console.log(cardInstance);
-              console.log(res);
-              cardInstance.showLikes(res.likes.length)
-              cardInstance._likes = res.likes;
-            }).catch(err => console.log(err))
-          }else{
-            console.log(cardInstance);
-            cardInstance._cardElement.classList.toggle("elements__heart_active");
-
-            cardElement.querySelector('.elements__heart').classList.add('elements__heart_active');
-            api.addLike(cardId).then(res => {
-              console.log(res);
-              cardInstance.showLikes(res.likes.length)
-              cardInstance._likes = res.likes;
-            }).catch(err => console.log(err))
-          }
-        }
-      },
-        userData._id,'.card-template')
-        const cardElement = cardInstance.createCard();
-        //insert into the images list
-        defaultList.addItem(cardElement)
-      //  return cardAdded(data)
-    }
+        likeHandler: (cardId) =>{ 
+          console.log(cardInstance); 
+ 
+          if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart_active')){ 
+            console.log(cardInstance); 
+ 
+            cardElement.querySelector('.elements__heart').classList.remove('elements__heart_active'); 
+            api.deleteLike(cardId).then(res => { 
+              console.log(cardInstance); 
+              console.log(res); 
+              cardInstance.showLikes(res.likes.length) 
+              cardInstance._likes = res.likes; 
+            }).catch(err => console.log(err)) 
+          }else{ 
+            console.log(cardInstance); 
+            cardInstance._cardElement.classList.toggle("elements__heart_active"); 
+ 
+            cardElement.querySelector('.elements__heart').classList.add('elements__heart_active'); 
+            api.addLike(cardId).then(res => { 
+              console.log(res); 
+              cardInstance.showLikes(res.likes.length) 
+              cardInstance._likes = res.likes; 
+            }).catch(err => console.log(err)) 
+          } 
+        } 
+      }, 
+        userData._id,'.card-template') 
+        const cardElement = cardInstance.createCard(); 
+        //insert into the images list 
+        defaultList.addItem(cardElement) 
+        loadingPopup(true, addImageModal);
+      //  return cardAdded(data) 
+    } 
   
   const profileForm = new PopupWithForm(
     {popupSelector: editProfileModal, 
