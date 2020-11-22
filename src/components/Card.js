@@ -25,6 +25,7 @@ export default class Card{
         this._cardElement = null;
     }
     _likedCardRenderer (){
+        //console.log(this._likes);
         if (this._likes.some((like) => like._id === this._userId)) {
             this._cardElement.querySelector(".elements__heart").classList.add("elements__heart_active");
           }

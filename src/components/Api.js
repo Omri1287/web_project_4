@@ -49,7 +49,7 @@ export default class Api {
         })
         .then((res) => {
             if(res.ok){
-                return {name, link}
+                return res.json()
             } else{
                 Promise.reject('Error!' + res.statusText)}})
         .catch(err => console.log(err))

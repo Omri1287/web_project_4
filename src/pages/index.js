@@ -123,9 +123,10 @@ api.getAppInfo().then(([userData, cardListData]) => {
       popupSubmition: (data) => {
       loadingPopup(true, addImageModal);
       api.addCard(data)
-      .then(data => {
+      .then((res) => {
+        console.log(res);
         //instance of card
-        addingNewCard(data);
+        addingNewCard(res);
         newCardPopup.close();
       })
       .catch(err => console.log(err))
@@ -157,25 +158,23 @@ api.getAppInfo().then(([userData, cardListData]) => {
           //api.removeCard(cardId)
         },
         likeHandler: (cardId) =>{ 
-          console.log(cardInstance); 
+          //console.log(cardInstance); 
  
           if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart_active')){ 
-            console.log(cardInstance); 
+            //console.log(cardInstance); 
  
             cardElement.querySelector('.elements__heart').classList.remove('elements__heart_active'); 
             api.deleteLike(cardId).then(res => { 
-              console.log(cardInstance); 
-              console.log(res); 
+              //console.log(cardInstance); 
+              //console.log(res); 
               cardInstance.showLikes(res.likes.length) 
               cardInstance._likes = res.likes; 
             }).catch(err => console.log(err)) 
           }else{ 
-            console.log(cardInstance); 
             cardInstance._cardElement.classList.toggle("elements__heart_active"); 
  
             cardElement.querySelector('.elements__heart').classList.add('elements__heart_active'); 
             api.addLike(cardId).then(res => { 
-              console.log(res); 
               cardInstance.showLikes(res.likes.length) 
               cardInstance._likes = res.likes; 
             }).catch(err => console.log(err)) 
