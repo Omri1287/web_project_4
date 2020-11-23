@@ -1,4 +1,5 @@
 .elements__delete{
+    visibility: hidden;
     transition-duration: .4s;
     cursor: pointer;
     background-image: url(../../../images/Trash.svg);
@@ -15,7 +16,9 @@
     left: 15px;
 
 }
-
+.elements__delete_show{
+    visibility: visible;
+}
 .elements__delete:hover {
 opacity: 0.5;
 }

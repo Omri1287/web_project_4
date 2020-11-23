@@ -4,6 +4,7 @@ export default class Card{
     constructor({data, handleCardClick, handleDeleteClick, likeHandler}, userId, cardTemplateSelector){
         this._name = data.name;
         this._link = data.link;
+        this._owner = data.owner;
         this._cardTemplateSelector = cardTemplateSelector;
         this._handleCardClick = handleCardClick;
         this._userId = userId;
@@ -33,6 +34,12 @@ export default class Card{
     showLikes(count){
         this._cardElement.querySelector(".elements__heart-count").textContent = count;
     }
+    _showDeleteIcon() {
+        // check that data.owner.userId = userId to handle showing delete button on card owner only
+        if(this._owner._id === this._userId) {
+          this._cardElement.querySelector('.elements__delete').classList.add('elements__delete_show');
+        }
+      }
     _addEventListeners(){
 
         this._cardElement.querySelector('.elements__delete').addEventListener("click", () => {
@@ -55,6 +62,7 @@ export default class Card{
         this._cardTitle.textContent = this._name;
         this._cardImage.style.backgroundImage = `url(${this._link})`;
         this._likedCardRenderer();
+        this._showDeleteIcon()
         this._addEventListeners();
         this.showLikes(this._likes.length);
         this._cardElement.id = this._id; 

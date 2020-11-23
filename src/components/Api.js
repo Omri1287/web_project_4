@@ -19,7 +19,7 @@ export default class Api {
                         Promise.reject('Error!' + res.statusText)
                     }
                 })
-                .catch(err => console.log(err))
+               // .catch(err => console.log(err))
     }
     getUserInfo(){
         return fetch(this._baseUrl + '/users/me', {
@@ -28,7 +28,7 @@ export default class Api {
             })
             //if you get response send the json, if not send an error status
             .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
-            .catch(err => console.log(err))
+            //.catch(err => console.log(err))
     }
     //should do the promise and wait for the get card list and user info results. 
     //then render all of them together, not step by step
@@ -52,7 +52,7 @@ export default class Api {
                 return res.json()
             } else{
                 Promise.reject('Error!' + res.statusText)}})
-        .catch(err => console.log(err))
+       // .catch(err => console.log(err))
     }
     removeCard(cardId){
         return fetch(this._baseUrl + '/cards/' + cardId, {
@@ -61,7 +61,7 @@ export default class Api {
             method: "DELETE",
         })
         .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
-        .catch(err => {throw new Error(err)});
+       // .catch(err => {throw new Error(err)});
     }
     //changeCardLikeStatus(cardId, like){}
     addLike(cardId){
@@ -78,11 +78,7 @@ export default class Api {
                 Promise.reject('Error!' + res.statusText)
             }
         })
-
-        .catch(err => {
-            console.log(err)
-        })
-
+        //.catch(err => {console.log(err)})
     }
     deleteLike(cardId){
         return fetch(this._baseUrl + '/cards/likes/' + cardId, {
@@ -91,7 +87,7 @@ export default class Api {
             method: "DELETE",
         })
         .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
-        .catch(err => console.log(err))
+       // .catch(err => console.log(err))
     }
     setUserInfo ({name, about}){
         return fetch(this._baseUrl + '/users/me', {
@@ -107,7 +103,7 @@ export default class Api {
             //if you get response send the json, if not send an error status
             .then((res) => {
                 return(res.ok ? res.json() : Promise.reject("Error!" + res.statusText + res.status))})
-            .catch(err => console.log(err))
+          //  .catch(err => console.log(err))
     }
     setUserAvatar({avatar}){
         return fetch(this._baseUrl + '/users/me/avatar', {
@@ -118,7 +114,7 @@ export default class Api {
             })
           })
           .then((res) => res.ok ? res.json(): Promise.reject('Error!' + res.statusText))
-          .catch(err => console.log(err))
+          //.catch(err => console.log(err))
     }
     setUserInfos({name, about}) {
         return fetch(this._baseUrl + '/users/me', {
@@ -135,7 +131,7 @@ export default class Api {
             }else{
                 Promise.reject('Error!' + res.statusText)
             }})
-        .catch(err => console.log(err))
+       // .catch(err => console.log(err))
       }
   
     // other methods for working with the API

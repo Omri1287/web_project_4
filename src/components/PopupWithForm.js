@@ -14,7 +14,7 @@ export default class PopupWithForm extends Popup {
         this._inputList.forEach(input => this._inputValues[input.name] = input.value);
         return this._inputValues;
     }
-    setEventListeners(){
+    /*setEventListeners(){
 
         //close the form popup
         this._formElement.addEventListener("submit", (e) => {
@@ -31,5 +31,19 @@ export default class PopupWithForm extends Popup {
     }
     deleteSubmitHandler(cbFunction) {
             this.cbFunction = cbFunction;
-       }
+       }*/
+       setEventListeners() {
+        super.setEventListeners(); //call from popup class
+    
+        //add submit handler to a form
+        this._formElement.addEventListener("submit", (event) => {
+          event.preventDefault();
+          this._popupSubmition(this._getInputValues());
+        });
+      }
+    
+      //delete card handler
+      setSubmitHandler(event) {
+        this._popupSubmition = event;
+      }
 }

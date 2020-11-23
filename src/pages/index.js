@@ -97,7 +97,7 @@ const deleteCardPopup = new PopupWithForm({
 });
 deleteCardPopup.setEventListeners();
 
-const profileInfo = new UserInfo( profileName, profileDesc);
+const profileInfo = new UserInfo( profileName, profileDesc, avatarImage);
 
 //api instance
 const api = new Api({
@@ -111,17 +111,20 @@ const api = new Api({
 //dfine userId and getAppInfo method inside api.js (11.11.20)
 
 api.getAppInfo().then(([userData, cardListData]) => {
+  
   const defaultList = new Section({
     items: cardListData,
     renderer: addingNewCard
   }, '.elements__list')
-  
+  api.getUserInfo().then(res => {
+
+    profileInfo.setUserInfo( res.name, res.about, res.avatar)
+  })
   defaultList.renderItems(); 
     // card list handler renders elements items
     const newCardPopup = new PopupWithForm({
       popupSelector:addImageModal,
       popupSubmition: (data) => {
-      loadingPopup(true, addImageModal);
       api.addCard(data)
       .then((res) => {
         console.log(res);
@@ -129,12 +132,13 @@ api.getAppInfo().then(([userData, cardListData]) => {
         addingNewCard(res);
         newCardPopup.close();
       })
+      loadingPopup(true, addImageModal)
       .catch(err => console.log(err))
       }
     })
     addImageButton.addEventListener("click", () => {
       newCardPopup.open();
-      document.querySelector(".modal__save").textContent = "Create";
+      loadingPopup(false, addImageModal);
     });
     //add image handler
     newCardPopup.setEventListeners();
@@ -146,14 +150,14 @@ api.getAppInfo().then(([userData, cardListData]) => {
         handleDeleteClick: (cardId) => {
           deleteCardPopup.open(cardId);
           //handle click on submit button
-          deleteCardPopup.deleteSubmitHandler(() => {
+          deleteCardPopup.setSubmitHandler(() => {
             //remove the card
             api.removeCard(cardId)
               .then(() => {
                 cardInstance._cardDeleter(cardId);
                 deleteCardPopup.close();
               })
-              .catch(err => console.log('sss' ,err));
+              .catch(err => console.log(err));
           });
           //api.removeCard(cardId)
         },
@@ -163,8 +167,8 @@ api.getAppInfo().then(([userData, cardListData]) => {
           if(cardElement.querySelector('.elements__heart').classList.contains('elements__heart_active')){ 
             //console.log(cardInstance); 
  
-            cardElement.querySelector('.elements__heart').classList.remove('elements__heart_active'); 
             api.deleteLike(cardId).then(res => { 
+              cardElement.querySelector('.elements__heart').classList.remove('elements__heart_active'); 
               //console.log(cardInstance); 
               //console.log(res); 
               cardInstance.showLikes(res.likes.length) 
@@ -172,9 +176,8 @@ api.getAppInfo().then(([userData, cardListData]) => {
             }).catch(err => console.log(err)) 
           }else{ 
             cardInstance._cardElement.classList.toggle("elements__heart_active"); 
- 
-            cardElement.querySelector('.elements__heart').classList.add('elements__heart_active'); 
             api.addLike(cardId).then(res => { 
+              cardElement.querySelector('.elements__heart').classList.add('elements__heart_active'); 
               cardInstance.showLikes(res.likes.length) 
               cardInstance._likes = res.likes; 
             }).catch(err => console.log(err)) 
@@ -192,8 +195,10 @@ api.getAppInfo().then(([userData, cardListData]) => {
   const profileForm = new PopupWithForm(
     {popupSelector: editProfileModal, 
       popupSubmition: (data) => {
+        loadingPopup(true, editProfileModal);
         api.setUserInfo({name: data.title, about:data.desc})
         .then(res => {
+          loadingPopup(false, editProfileModal)
           profileInfo.setUserInfo(inputName.value, inputDesc.value)})
           .catch(err => console.log(err))
         }
@@ -216,14 +221,14 @@ api.getAppInfo().then(([userData, cardListData]) => {
 
 //avatar handler
 function handleAvatarEdit(data) {
-  loadingPopup(true, editAvatarModal);
   api.setUserAvatar({
     avatar: data.avatarURL
   })
   .then(res => {
+    loadingPopup(true, editAvatarModal);
     avatarImage.src = res.avatar;
-    loadingPopup(false, editAvatarModal);
     editAvatar.close();
+    loadingPopup(false, editAvatarModal);
   })
   .catch(err => console.log(err));
 }
@@ -250,12 +255,7 @@ avatarEditBtn.addEventListener("click", () => {
 
 editAvatar.setEventListeners();
 
-api.getUserInfo().then(res => {
-
-  profileInfo.setUserInfo( res.name, res.about)
-})
-
-export { profileName, profileDesc, imageModal, enlargedImage }
+export { profileName, profileDesc, imageModal, enlargedImage, avatarImage }
 
 //validations
 
