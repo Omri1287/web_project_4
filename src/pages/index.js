@@ -125,14 +125,16 @@ api.getAppInfo().then(([userData, cardListData]) => {
     const newCardPopup = new PopupWithForm({
       popupSelector:addImageModal,
       popupSubmition: (data) => {
+      loadingPopup(true, addImageModal)
       api.addCard(data)
       .then((res) => {
         console.log(res);
         //instance of card
         addingNewCard(res);
         newCardPopup.close();
+        loadingPopup(false, addImageModal)
       })
-      loadingPopup(true, addImageModal)
+      //loadingPopup(true, addImageModal)
       .catch(err => console.log(err))
       }
     })
@@ -196,27 +198,33 @@ api.getAppInfo().then(([userData, cardListData]) => {
     {popupSelector: editProfileModal, 
       popupSubmition: (data) => {
         loadingPopup(true, editProfileModal);
-        api.setUserInfo({name: data.title, about:data.desc})
+        api.setUserInfos({name: data.title, about:data.desc})
         .then(res => {
           loadingPopup(false, editProfileModal)
-          profileInfo.setUserInfo(inputName.value, inputDesc.value)})
-          .catch(err => console.log(err))
-        }
+          profileInfo.setUserInfo(inputName.value, inputDesc.value)
+          profileForm.close();
+          console.log(res)
+        })
+        /*.then(res =>{
+          profileForm.close();
+          console.log(res)
+        })*/
+        .catch(err => console.log(err))
+      }
     })
       //open edit info form
     editButton.addEventListener('click', () => {
+      profileForm.open();
       const user = profileInfo.getUserInfo();
       profileName.value = user.title; 
       profileDesc.value = user.desc; 
-      profileForm.open();
     })
-
     //edit info  handler
     profileForm.setEventListeners();
 
     //return user avatar
-    avatarImage.src = userData.avatar;
-  
+    //avatarImage.src = userData.avatar;
+
 }).catch(err => console.log(err));
 
 //avatar handler

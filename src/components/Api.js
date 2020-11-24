@@ -125,15 +125,10 @@ export default class Api {
             about
           })
         })
-        .then((res) => {
-            if(res.ok){
-                return res.json()
-            }else{
-                Promise.reject('Error!' + res.statusText)
-            }})
-       // .catch(err => console.log(err))
+        .then((res) =>{
+            return (res.ok ? res.json() : Promise.reject('Error!' + res.statusText));
+        })
       }
   
-    // other methods for working with the API
   }
   
