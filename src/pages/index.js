@@ -97,8 +97,6 @@ const deleteCardPopup = new PopupWithForm({
 });
 deleteCardPopup.setEventListeners();
 
-const profileInfo = new UserInfo( profileName, profileDesc, avatarImage);
-
 //api instance
 const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/group-6",
@@ -111,7 +109,6 @@ const api = new Api({
 //dfine userId and getAppInfo method inside api.js (11.11.20)
 
 api.getAppInfo().then(([userData, cardListData]) => {
-  
   const defaultList = new Section({
     items: cardListData,
     renderer: addingNewCard
@@ -192,8 +189,9 @@ api.getAppInfo().then(([userData, cardListData]) => {
         defaultList.addItem(cardElement) 
         loadingPopup(true, addImageModal);
       //  return cardAdded(data) 
-    } 
-  
+    }
+  //edit profile info   
+  const profileInfo = new UserInfo( profileName, profileDesc, avatarImage);
   const profileForm = new PopupWithForm(
     {popupSelector: editProfileModal, 
       popupSubmition: (data) => {
@@ -201,7 +199,7 @@ api.getAppInfo().then(([userData, cardListData]) => {
         api.setUserInfos({name: data.title, about:data.desc})
         .then(res => {
           loadingPopup(false, editProfileModal)
-          profileInfo.setUserInfo(inputName.value, inputDesc.value)
+          profileInfo.setUserInfo(res.name, res.about)
           profileForm.close();
           console.log(res)
         })
@@ -212,31 +210,28 @@ api.getAppInfo().then(([userData, cardListData]) => {
         .catch(err => console.log(err))
       }
     })
+
+    //edit info  handler
+    profileForm.setEventListeners();
       //open edit info form
     editButton.addEventListener('click', () => {
       profileForm.open();
       const user = profileInfo.getUserInfo();
-      profileName.value = user.title; 
-      profileDesc.value = user.desc; 
+      inputName.value = user.title; 
+      inputDesc.value = user.desc; 
     })
-    //edit info  handler
-    profileForm.setEventListeners();
-
-    //return user avatar
-    //avatarImage.src = userData.avatar;
-
 }).catch(err => console.log(err));
 
 //avatar handler
 function handleAvatarEdit(data) {
+  loadingPopup(true, editAvatarModal);
   api.setUserAvatar({
     avatar: data.avatarURL
   })
   .then(res => {
-    loadingPopup(true, editAvatarModal);
     avatarImage.src = res.avatar;
-    editAvatar.close();
     loadingPopup(false, editAvatarModal);
+    editAvatar.close();
   })
   .catch(err => console.log(err));
 }
