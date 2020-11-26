@@ -27,4 +27,4 @@ I also set up webpack bundling and building in order to bundle JavaScript files 
 * Add some more buttons in order to be able to edit further parts of the webpage, such as logos and videos.
 
 ### Link to the page
-https://omri1287.github.io/web_project_4/
+https://omri1287.github.io/Around_the_USA/
